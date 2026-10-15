@@ -48,3 +48,27 @@ TEST(TestEasyExampleLib, throw_when_try_div_by_zero) {
   // Act & Assert
   ASSERT_ANY_THROW(division(x, y));
 }
+
+TEST(TestEasyExampleLib, new_algorithm_test1) {
+    std::string str = "(()()()()(()()))";
+
+    EXPECT_TRUE(check_brackets(str));
+}
+
+TEST(TestEasyExampleLib, new_algorithm_test2) {
+    std::string str = "[{}(){()[]}]";
+
+    EXPECT_TRUE(check_brackets(str));
+}
+
+TEST(TestEasyExampleLib, new_algorithm_test3) {
+    std::string str = "[{}(){()[]{{{}]";
+
+    EXPECT_FALSE(check_brackets(str));
+}
+
+TEST(TestEasyExampleLib, new_algorithm_test4) {
+    std::string str = "))))[{}(){()[]{{{}]";
+
+    EXPECT_FALSE(check_brackets(str));
+}
