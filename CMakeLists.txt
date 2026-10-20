@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # название проекта
-project(Algorithms-and-Data-Structures)
+project(DataStructure)
 
 # затем следует список инструкций для подключения проектов из подкаталогов
 
@@ -13,7 +13,7 @@ include(cmake/function.cmake)         # подхватываем функции,
                                       # для простоты мы объединили наборы команд для создания статической библиотеки
 								      # и для создания исполняемого проекта в отдельные функции
 
-add_subdirectory(lib_easy_example)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
+add_subdirectory(lib_algorithms)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
 
 add_subdirectory(lib_vector)          # подключаем вектор
 
