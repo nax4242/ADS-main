@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "../lib_easy_example/easy_example.h"
+#include "../lib_algorithms/algorithms.h"
 #include "stack_on_mass.h"
 
 float division(int a, int b) {

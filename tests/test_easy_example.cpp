@@ -1,7 +1,7 @@
 // Copyright 2024 Marina Usova
 
 #include <gtest/gtest.h>
-#include "../lib_easy_example/easy_example.h"
+#include "../lib_algorithms/algorithms.h"
 
 #define EPSILON 0.000001
 
@@ -68,7 +68,7 @@ TEST(TestEasyExampleLib, new_algorithm_test3) {
 }
 
 TEST(TestEasyExampleLib, new_algorithm_test4) {
-    std::string str = "))))[{}(){()[]{{{}]";
+    std::string str = "))))[{}()()[]{}]";
 
     EXPECT_FALSE(check_brackets(str));
 }
