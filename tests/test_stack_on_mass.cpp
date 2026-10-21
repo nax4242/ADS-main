@@ -1,5 +1,9 @@
 #include <gtest/gtest.h>
 #include "stack_on_mass.h"
+#include "paremeters.h"
+
+
+#ifdef STACK_TESTS
 
 TEST(ClassStackOnMass, can_create_with_default_constructor) {
 	TStackOnMass<int> stack;
@@ -59,3 +63,41 @@ TEST(ClassStackOnMass, can_pop) {
 	EXPECT_THROW(stack.top(), std::logic_error);
 	EXPECT_TRUE(stack.is_empty());
 }
+
+TEST(ClassStackOnMass, can_throw_when_push_to_full_stack) {
+	TStackOnMass<int> stack(5);
+
+	for (int i = 0; i < stack.size(); i++) {
+		stack.push(i);
+	}
+
+	EXPECT_THROW(stack.push(5), std::overflow_error);
+}
+
+TEST(ClassStackOnMass, can_throw_when_pop_from_empty_stack) {
+	TStackOnMass<int> stack(5);
+
+	EXPECT_THROW(stack.pop(), std::underflow_error);
+}
+
+TEST(ClassStackOnMass, can_throw_when_top_from_empty_stack) {
+	TStackOnMass<int> stack(5);
+
+	EXPECT_THROW(stack.top(), std::logic_error);
+}
+
+TEST(ClassStackOnMass, can_check_is_empty_and_is_full) {
+	TStackOnMass<int> stack(5);
+
+	EXPECT_TRUE(stack.is_empty());
+	EXPECT_FALSE(stack.is_full());
+
+	for (int i = 0; i < stack.size(); i++) {
+		stack.push(i);
+	}
+
+	EXPECT_FALSE(stack.is_empty());
+	EXPECT_TRUE(stack.is_full());
+}
+
+#endif

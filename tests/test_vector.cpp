@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
-#include "vector.h"
 #include <random>
+#include "vector.h"
+#include "paremeters.h"
+
+#ifdef VECTOR_TESTS
 
 TEST(ClassVector, can_create_with_default_constructor) {
     Vector<double> v1;
@@ -1418,3 +1421,5 @@ TEST(ClassVector, erase_on_empty_vector_throwsgvjh) {
     Vector<int> v;
     EXPECT_THROW(v.erase(0), std::exception);
 }
+
+#endif

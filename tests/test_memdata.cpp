@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 #include "memdata.h"
+#include "paremeters.h"
+
+#ifdef MEMDATA_TESTS
 
 TEST(FunctionsForMemData, calculate_capacity_test) {
     EXPECT_EQ(calculate_capacity(67), 75);
@@ -347,3 +350,5 @@ TEST(ClassMemData, reset_memory_shrinks_size_when_requested_size_is_smaller) {
     EXPECT_EQ(m.size(), 2u)
         << "reset_memory не уменьшила _size при запросе меньшего размера";
 }
+
+#endif
