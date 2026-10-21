@@ -9,7 +9,6 @@ float division(int a, int b) {
     return static_cast<float>(a) / b;
 }
 
-//"[{}(){()[]}]"
 bool check_brackets(std::string expression) {
     TStackOnMass<char> stack(expression.size());
 
