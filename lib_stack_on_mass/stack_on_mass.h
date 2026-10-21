@@ -51,7 +51,7 @@ TStackOnMass<T>::~TStackOnMass() {
 template <typename T>
 void TStackOnMass<T>::push(const T& elem) {
 	if (is_full()) {
-		throw std::logic_error("Stack is full, impossible to push");
+		throw std::overflow_error("Stack is full, impossible to push");
 	}
 
 	_top++;
@@ -61,7 +61,7 @@ void TStackOnMass<T>::push(const T& elem) {
 template <typename T>
 T TStackOnMass<T>::pop() {
 	if (is_empty()) {
-		throw std::logic_error("Stack is empty, inpossible to pop");
+		throw std::underflow_error("Stack is empty, impossible to pop");
 	}
 
 	_top--;

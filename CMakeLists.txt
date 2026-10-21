@@ -17,7 +17,9 @@ add_subdirectory(lib_algorithms)    # подключаем дополнител�
 
 add_subdirectory(lib_vector)          # подключаем вектор
 
-add_subdirectory(lib_stack_on_mass)   # подключаем вектор
+add_subdirectory(lib_stack_on_mass)   # подключаем стек на массиве
+
+add_subdirectory(lib_queue_on_mass)   # подключаем очередь на массиве
 
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
