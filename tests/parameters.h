@@ -10,4 +10,6 @@
 
 //#define ALGORITHM_TESTS
 
-#define BITFIELD_TESTS
+//#define BITFIELD_TESTS
+
+//#define SET_TESTS
