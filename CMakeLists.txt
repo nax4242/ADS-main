@@ -21,6 +21,8 @@ add_subdirectory(lib_stack_on_mass)   # подключаем стек на ма�
 
 add_subdirectory(lib_queue_on_mass)   # подключаем очередь на массиве
 
+add_subdirectory(lib_set)             # подключаем множество
+
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
