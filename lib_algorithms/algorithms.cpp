@@ -1,6 +1,4 @@
-#include <stdexcept>
 #include "../lib_algorithms/algorithms.h"
-#include "stack_on_mass.h"
 
 float division(int a, int b) {
     if (b == 0) {
@@ -35,4 +33,23 @@ bool check_brackets(std::string expression) {
 
     if (!stack.is_empty()) return false;
     else return true;
+}
+
+Set sieve_of_eratosthenes(const Set& s) {
+    Set result(s);
+    const size_t N = s.get_power();
+
+    if (N > 1 && result.is_member(1)) {
+        result.erase(1);
+    }
+
+    for (size_t i = 2; i * i <= N; i++) {
+        if (result.is_member(i)) {
+            for (size_t j = i * i; j <= N; j += i) {
+                result.erase(j);
+            }
+        }
+    }
+
+    return result;
 }

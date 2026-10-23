@@ -1,10 +1,11 @@
-// Copyright 2024 Marina Usova
+#pragma once
 
-#ifndef LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
-#define LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
+#include <stdexcept>
+#include "stack_on_mass.h"
+#include "set.h"
 
 float division(int a, int b);
 
 bool check_brackets(std::string expression);
 
-#endif  // LIB_EASY_EXAMPLE_EASY_EXAMPLE_H_
+Set sieve_of_eratosthenes(const Set& s);

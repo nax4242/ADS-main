@@ -166,4 +166,41 @@ TEST(TestCheckBrackets, deep_nesting_missing_one_closing) {
     EXPECT_FALSE(check_brackets(str));
 }
 
+TEST(TestSieveOfEratosthenes, test_1) {
+	Set s(10);
+
+	for (int i = 1; i <= 10; i++) {
+		s.insert(i);
+	}
+
+	Set expected(10);
+
+	expected.insert(2);
+	expected.insert(3);
+	expected.insert(5);
+	expected.insert(7);
+
+	Set result = sieve_of_eratosthenes(s);
+
+	EXPECT_EQ(result, expected);
+}
+
+TEST(TestSieveOfEratosthenes, test_2) {
+    Set s(100);
+
+    for (int i = 1; i <= 100; i++) {
+        s.insert(i);
+    }
+
+    Set expected(100);
+
+    for (size_t p : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}) {
+        expected.insert(p);
+    }
+
+    Set result = sieve_of_eratosthenes(s);
+
+    EXPECT_EQ(result, expected);
+}
+
 #endif
