@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include "vector.h"
-#include "paremeters.h"
+#include "parameters.h"
 
 #ifdef VECTOR_TESTS
 

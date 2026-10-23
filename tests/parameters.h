@@ -8,4 +8,6 @@
 
 //#define QUEUE_TESTS
 
-#define ALGORITHM_TESTS
+//#define ALGORITHM_TESTS
+
+#define BITFIELD_TESTS

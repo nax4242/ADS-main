@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "queue_on_mass.h"
-#include "paremeters.h"
+#include "parameters.h"
 
 #ifdef QUEUE_TESTS
 

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "memdata.h"
-#include "paremeters.h"
+#include "parameters.h"
 
 #ifdef MEMDATA_TESTS
 

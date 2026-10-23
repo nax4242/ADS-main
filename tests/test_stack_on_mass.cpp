@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "stack_on_mass.h"
-#include "paremeters.h"
+#include "parameters.h"
 
 
 #ifdef STACK_TESTS

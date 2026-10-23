@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 #include "../lib_algorithms/algorithms.h"
-#include "paremeters.h"
+#include "parameters.h"
 
 #define EPSILON 0.000001
 
