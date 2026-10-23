@@ -201,6 +201,36 @@ TEST(BitFieldTest, can_throw_or_assign_operator) {
 	EXPECT_THROW(bf1 |= bf2, std::invalid_argument);
 }
 
+TEST(BitFieldTest, can_equality_operator) {
+	BitField bf1(10);
+	BitField bf2(10);
+
+	bf1.set_bit(3);
+	bf2.set_bit(3);
+
+	EXPECT_TRUE(bf1 == bf2);
+}
+
+TEST(BitFieldTest, can_inequality_operator) {
+	BitField bf1(10);
+	BitField bf2(10);
+
+	bf1.set_bit(3);
+	bf2.set_bit(5);
+
+	EXPECT_TRUE(bf1 != bf2);
+}
+
+TEST(BitFieldTest, can_inequality_with_different_sizes) {
+	BitField bf1(10);
+	BitField bf2(20);
+
+	bf1.set_bit(3);
+	bf2.set_bit(3);
+
+	EXPECT_TRUE(bf1 != bf2);
+}	
+
 TEST(BitFieldTest, can_output_operator) {
 	BitField bf(10);
 
@@ -228,5 +258,50 @@ TEST(BitFieldTest, can_input_operator) {
 		}
 	}
 }
+
+TEST(BitFieldTest, can_input_operator_error_alpha) {
+	BitField bf(10);
+
+	bf.set_bit(3);
+	bf.set_bit(5);
+
+	std::istringstream is("000a1010000");
+
+	is >> bf;
+
+	EXPECT_EQ(10, bf.get_size());
+
+	for(size_t i = 0; i < bf.get_size(); i++) {
+		if (i == 3 || i == 5) {
+			EXPECT_TRUE(bf.get_bit(i));
+		}
+		else {
+			EXPECT_FALSE(bf.get_bit(i));
+		}
+	}
+}
+
+TEST(BitFieldTest, can_input_operator_error_space) {
+	BitField bf(10);
+
+	bf.set_bit(3);
+	bf.set_bit(5);
+
+	std::istringstream is("000 1010000");
+
+	is >> bf;
+
+	EXPECT_EQ(10, bf.get_size());
+
+	for (size_t i = 0; i < bf.get_size(); i++) {
+		if (i == 3 || i == 5) {
+			EXPECT_TRUE(bf.get_bit(i));
+		}
+		else {
+			EXPECT_FALSE(bf.get_bit(i));
+		}
+	}
+}
+
 
 #endif

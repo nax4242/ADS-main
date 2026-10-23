@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-class BitField { // хранит [1; _N]
+class BitField {
     unsigned int* _data;
     size_t _N;
 
@@ -13,11 +13,11 @@ public:
 
     ~BitField();
 
-    void set_bit(size_t pos);
-    void reset_bit(size_t pos);
-
     bool get_bit(size_t pos) const;
     inline size_t get_size() const noexcept;
+
+    void set_bit(size_t pos);
+    void reset_bit(size_t pos);
 
     BitField& operator=(const BitField& other);
     BitField& operator=(BitField&& other) noexcept;
@@ -28,6 +28,9 @@ public:
 
     BitField& operator&=(const BitField& other);
     BitField& operator|=(const BitField& other);
+
+    bool operator==(const BitField& other) const noexcept;
+    bool operator!=(const BitField& other) const noexcept;
 
     friend std::ostream& operator<<(std::ostream& os, const BitField& other);
     friend std::istream& operator>>(std::istream& is, BitField& other);

@@ -131,6 +131,21 @@ BitField& BitField::operator|=(const BitField& other) {
 }
 
 
+bool BitField::operator==(const BitField& other) const noexcept {
+	if (_N != other._N) return false;
+
+	for (size_t i = 0; i < get_data_size(); i++) {
+		if (_data[i] != other._data[i]) return false;
+	}
+
+	return true;
+}
+
+bool BitField::operator!=(const BitField& other) const noexcept {
+	return !(*this == other);
+}
+
+
 std::ostream& operator<<(std::ostream& os, const BitField& other) {
 	for (size_t i = 0; i < other._N; i++) {
 		os << (other.get_bit(i) ? '1' : '0');
@@ -140,25 +155,23 @@ std::ostream& operator<<(std::ostream& os, const BitField& other) {
 }
 
 std::istream& operator>>(std::istream& is, BitField& other) {
+	BitField tmp(other._N);
+
 	for (size_t i = 0; i < other._N; i++) {
 		char c;
 
-		if (is >> c) {
-			if (c == '1') {
-				other.set_bit(i);
-			}
-			else if (c == '0') {
-				other.reset_bit(i);
-			}
-			else {
-				is.setstate(std::ios::failbit);
-				break;
-			}
+		if (!(is >> c)) return is;
+
+		if (c == '1') {
+			tmp.set_bit(i);
 		}
-		else {
-			break;
+		else if (c != '0') {
+			is.setstate(std::ios::failbit);
+			return is;
 		}
 	}
+
+	other = std::move(tmp);
 
 	return is;
 }
