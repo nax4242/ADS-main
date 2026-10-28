@@ -35,13 +35,11 @@ bool check_brackets(std::string expression) {
     else return true;
 }
 
-Set sieve_of_eratosthenes(const Set& s) {
-    Set result(s);
-    const size_t N = s.get_power();
-
-    if (N > 1 && result.is_member(1)) {
-        result.erase(1);
-    }
+Set sieve_of_eratosthenes(size_t N) {
+    Set result(N);
+    result = -result;
+    
+    result.erase(1);
 
     for (size_t i = 2; i * i <= N; i++) {
         if (result.is_member(i)) {

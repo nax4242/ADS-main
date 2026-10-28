@@ -1,6 +1,10 @@
 #include "set.h"
 
-Set::Set(size_t N) : _bit_field(N) {}
+Set::Set(size_t N) : _bit_field(N) {
+    if(N == 0) {
+        throw std::invalid_argument("Input Error: Set size cannot be zero!");
+    }
+}
 
 Set::Set(const Set& other) : _bit_field(other._bit_field) {}
 

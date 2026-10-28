@@ -166,41 +166,49 @@ TEST(TestCheckBrackets, deep_nesting_missing_one_closing) {
     EXPECT_FALSE(check_brackets(str));
 }
 
-TEST(TestSieveOfEratosthenes, test_1) {
-	Set s(10);
+TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test1) {
+	Set expected_result(10);
+    expected_result = -expected_result;
 
-	for (int i = 1; i <= 10; i++) {
-		s.insert(i);
-	}
+	expected_result.erase(1);
+	expected_result.erase(4);
+	expected_result.erase(6);
+	expected_result.erase(8);
+	expected_result.erase(9);
+    expected_result.erase(10);
 
-	Set expected(10);
-
-	expected.insert(2);
-	expected.insert(3);
-	expected.insert(5);
-	expected.insert(7);
-
-	Set result = sieve_of_eratosthenes(s);
-
-	EXPECT_EQ(result, expected);
+	Set actual_result = sieve_of_eratosthenes(10);
+	EXPECT_EQ(expected_result, actual_result);
 }
 
-TEST(TestSieveOfEratosthenes, test_2) {
-    Set s(100);
+TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test2) {
+	Set expected_result(20);
+	expected_result = -expected_result;
 
-    for (int i = 1; i <= 100; i++) {
-        s.insert(i);
-    }
+	expected_result.erase(1);
+	expected_result.erase(4);
+	expected_result.erase(6);
+	expected_result.erase(8);
+	expected_result.erase(9);
+	expected_result.erase(10);
+	expected_result.erase(12);
+	expected_result.erase(14);
+	expected_result.erase(15);
+	expected_result.erase(16);
+	expected_result.erase(18);
+    expected_result.erase(20);
 
-    Set expected(100);
+	Set actual_result = sieve_of_eratosthenes(20);
+	EXPECT_EQ(expected_result, actual_result);
+}
 
-    for (size_t p : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}) {
-        expected.insert(p);
-    }
+TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test3) {
+    Set expected_result(1);
+    expected_result = -expected_result;
 
-    Set result = sieve_of_eratosthenes(s);
-
-    EXPECT_EQ(result, expected);
+    expected_result.erase(1);
+    Set actual_result = sieve_of_eratosthenes(1);
+    EXPECT_EQ(expected_result, actual_result);
 }
 
 #endif

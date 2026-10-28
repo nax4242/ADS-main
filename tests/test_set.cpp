@@ -11,6 +11,10 @@ TEST(TestSet, can_create_with_default_constructor) {
 	EXPECT_FALSE(s.is_member(1));
 }
 
+TEST(TestSet, can_throw_with_default_constructor) {
+	EXPECT_THROW(Set s2(0), std::invalid_argument);
+}
+
 TEST(TestSet, can_create_with_size_constructor) {
 	Set s(5);
 

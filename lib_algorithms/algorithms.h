@@ -8,4 +8,4 @@ float division(int a, int b);
 
 bool check_brackets(std::string expression);
 
-Set sieve_of_eratosthenes(const Set& s);
+Set sieve_of_eratosthenes(size_t N);
