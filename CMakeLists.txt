@@ -4,6 +4,14 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+################################################################################
+# убирает служебный проект ZERO_CHECK в Visual Studio (должно стоять до project)
+set(CMAKE_SUPPRESS_REGENERATION ON)
+
+# включает папки (фильтры) в обозревателе решений Visual Studio
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+################################################################################
+
 # название проекта
 project(DataStructure)
 
@@ -34,6 +42,18 @@ if(BTEST)                             # если тесты подключены
     add_subdirectory("third_party/gtest" EXCLUDE_FROM_ALL)
     enable_testing()
     add_subdirectory(tests)
+
+###########################################################################
+    # прячем gtest и gtest_main в папку third_party
+    set_target_properties(gtest gtest_main PROPERTIES FOLDER "third_party")
+###########################################################################
+
 endif()
 
+#################################################################
+# ALL_BUILD, INSTALL, RUN_TESTS складываем в одну свёрнутую папку
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
+# стартовый проект для запуска по F5
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT Application)
+#################################################################
