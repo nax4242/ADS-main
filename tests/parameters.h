@@ -14,4 +14,6 @@
 //
 //#define SET_TESTS
 
-#define MULTI_STACK_TESTS
+//#define MULTI_STACK_TESTS
+
+#define LIST_TESTS
