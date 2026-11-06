@@ -1,15 +1,21 @@
+// Copyright 2026 Danila Puzanov
+
 #pragma once
-#include "math_vector.h"
+
+#include <initializer_list>
+#include <utility>
+#include "../lib_matrix/math_vector.h"
 
 template <typename T>
 class Matrix : public MathVector<MathVector<T>> {
 public:
-    Matrix(size_t rows = 1, size_t cols = 1);
+    explicit Matrix(size_t rows = 1, size_t cols = 1);
     Matrix(std::initializer_list<std::initializer_list<T>> data);
 
     Matrix(const Matrix<T>&) = default;
     Matrix(Matrix<T>&&) noexcept = default;
 
+    // NOLINTNEXTLINE(runtime/explicit)
     Matrix(const MathVector<MathVector<T>>& vec);
     ~Matrix() = default;
 
@@ -31,8 +37,10 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T>& m) {
         os << "[ ";
 
         for (size_t j = 0; j < m.cols(); j++) {
-            if (j < m[i].start_index()) os << T() << ' ';
-            else os << m[i][j] << ' ';
+            if (j < m[i].start_index())
+                os << T() << ' ';
+            else
+                os << m[i][j] << ' ';
         }
 
         os << "]";
@@ -58,7 +66,8 @@ std::istream& operator>>(std::istream& is, Matrix<T>& m) {
 
             if (j < start) {
                 if (value != T()) {
-                    throw std::invalid_argument("Elements below the diagonal must be zero");
+                    throw std::invalid_argument(
+                        "Elements below the diagonal must be zero");
                 }
             } else {
                 tmp[i][j] = value;
@@ -78,13 +87,15 @@ Matrix<T>::Matrix(size_t rows, size_t cols) : MathVector<MathVector<T>>(rows) {
 }
 
 template <typename T>
-Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> data) : MathVector<MathVector<T>>(data.size()) {
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> data)
+    : MathVector<MathVector<T>>(data.size()) {
     size_t expected_row_size = data.begin()->size();
 
     size_t i = 0;
     for (const auto& row : data) {
         if (row.size() != expected_row_size) {
-            throw std::invalid_argument("All rows must have the same number of columns");
+            throw std::invalid_argument(
+                "All rows must have the same number of columns");
         }
 
         (*this)[i] = MathVector<T>(row);
@@ -93,7 +104,8 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> data) : MathVe
 }
 
 template <typename T>
-Matrix<T>::Matrix(const MathVector<MathVector<T>>& vec) : MathVector<MathVector<T>>(vec) {}
+Matrix<T>::Matrix(const MathVector<MathVector<T>>& vec)
+    : MathVector<MathVector<T>>(vec) {}
 
 template <typename T>
 inline size_t Matrix<T>::rows() const noexcept {
@@ -108,7 +120,8 @@ inline size_t Matrix<T>::cols() const noexcept {
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
     if (cols() != other.rows()) {
-        throw std::invalid_argument("Matrix dimensions incompatible for multiplication");
+        throw std::invalid_argument(
+            "Matrix dimensions incompatible for multiplication");
     }
 
     Matrix<T> result(rows(), other.cols());

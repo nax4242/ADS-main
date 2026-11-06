@@ -1,7 +1,12 @@
+// Copyright 2026 Danila Puzanov
+
 #pragma once
 
+#include <initializer_list>
 #include <iostream>
-#include "mem_data.h"
+#include <random>
+#include <utility>
+#include "../lib_matrix/mem_data.h"
 
 enum DirectionToShift { _Left, _Right };
 
@@ -16,6 +21,7 @@ public:
     class Iterator {
         Vector<T>* _vec;
         size_t _pos;
+
     public:
         Iterator() : _vec(nullptr), _pos(0) {}
         Iterator(Vector<T>* vec, size_t pos) : _vec(vec), _pos(pos) {}
@@ -24,7 +30,7 @@ public:
             _pos++;
             return *this;
         }
-        Iterator  operator++(int) noexcept {
+        Iterator operator++(int) noexcept {
             Iterator temp = *this;
             _pos++;
             return temp;
@@ -34,7 +40,7 @@ public:
             _pos--;
             return *this;
         }
-        Iterator  operator--(int) noexcept {
+        Iterator operator--(int) noexcept {
             Iterator temp = *this;
             _pos--;
             return temp;
@@ -61,8 +67,12 @@ public:
         Type& operator*() { return (*_vec)[_pos]; }
         const Type& operator*() const { return (*_vec)[_pos]; }
 
-        bool operator==(const Iterator& other) const noexcept { return _vec == other._vec && _pos == other._pos; }
-        bool operator!=(const Iterator& other) const noexcept { return !(*this == other); }
+        bool operator==(const Iterator& other) const noexcept {
+            return _vec == other._vec && _pos == other._pos;
+        }
+        bool operator!=(const Iterator& other) const noexcept {
+            return !(*this == other);
+        }
     };
 
     typedef Iterator<T> iterator;
@@ -71,13 +81,17 @@ public:
     iterator begin() noexcept { return iterator(this, 0); }
     iterator end() noexcept { return iterator(this, _mem._size); }
 
-    const_iterator begin() const noexcept { return const_iterator(const_cast<Vector<T>*>(this), 0); }
-    const_iterator end() const noexcept { return const_iterator(const_cast<Vector<T>*>(this), _mem._size); }
+    const_iterator begin() const noexcept {
+        return const_iterator(const_cast<Vector<T>*>(this), 0);
+    }
+    const_iterator end() const noexcept {
+        return const_iterator(const_cast<Vector<T>*>(this), _mem._size);
+    }
 
     const_iterator cbegin() const noexcept { return begin(); }
     const_iterator cend() const noexcept { return end(); }
 
-    Vector(size_t size = 0);
+    explicit Vector(size_t size = 0);
     Vector(std::initializer_list<T>);
     Vector(T*, size_t);
     Vector(const Vector<T>&);
@@ -110,8 +124,8 @@ public:
     Vector<T>& operator=(const Vector<T>&) noexcept;
     Vector<T>& operator=(Vector<T>&&) noexcept;
 
-    const T& operator[](size_t) const noexcept;
-    T& operator[](size_t) noexcept;
+    const T& operator[](size_t index) const noexcept;
+    T& operator[](size_t index) noexcept;
 
     template <typename T>
     friend std::ostream& operator<<(std::ostream&, const Vector<T>&);
@@ -204,13 +218,18 @@ template <typename T>
 Vector<T>::Vector(size_t size) : _mem(MemData<T>(size)), _front(0), _back(0) {}
 
 template <typename T>
-Vector<T>::Vector(std::initializer_list<T> vec) : _mem(MemData<T>(vec)), _front(0), _back(_mem.size() - 1) {}
+Vector<T>::Vector(std::initializer_list<T> vec)
+    : _mem(MemData<T>(vec)), _front(0), _back(_mem.size() - 1) {
+}
 
 template <typename T>
-Vector<T>::Vector(T* data, size_t size) : _mem(MemData<T>(data, size)), _front(0), _back(_mem.size() - 1) {}
+Vector<T>::Vector(T* data, size_t size)
+    : _mem(MemData<T>(data, size)), _front(0), _back(_mem.size() - 1) {
+}
 
 template <typename T>
-Vector<T>::Vector(const Vector<T>& other) : _mem(other._mem._size), _front(0), _back(other._mem._size - 1) {
+Vector<T>::Vector(const Vector<T>& other)
+    : _mem(other._mem._size), _front(0), _back(other._mem._size - 1) {
     _mem._size = other._mem._size;
 
     for (size_t i = 0; i < other._mem._size; i++) {
@@ -220,11 +239,12 @@ Vector<T>::Vector(const Vector<T>& other) : _mem(other._mem._size), _front(0), _
 }
 
 template <typename T>
-Vector<T>::Vector(Vector<T>&& other) : _mem(std::move(other._mem)), _front(other._front), _back(other._back) {}
+Vector<T>::Vector(Vector<T>&& other)
+    : _mem(std::move(other._mem)), _front(other._front), _back(other._back) {
+}
 
 template <typename T>
 void Vector<T>::push_front(T elem) noexcept {
-
     if (is_empty()) {
         _front = 0;
         _back = 0;
@@ -249,7 +269,6 @@ void Vector<T>::push_front(T elem) noexcept {
 
 template <typename T>
 void Vector<T>::push_back(T elem) noexcept {
-
     if (is_empty()) {
         _front = 0;
         _back = 0;
@@ -274,7 +293,6 @@ void Vector<T>::push_back(T elem) noexcept {
 
 template <typename T>
 void Vector<T>::insert(T elem, size_t human_index) {
-
     if (human_index > _mem._size) {
         throw std::logic_error("daun");
     }
@@ -299,8 +317,10 @@ void Vector<T>::insert(T elem, size_t human_index) {
 
     DirectionToShift direction;
 
-    if (human_index < _mem._size / 2) direction = _Left;
-    else direction = _Right;
+    if (human_index < _mem._size / 2)
+        direction = _Left;
+    else
+        direction = _Right;
 
     push_elements_to_insert(human_index, direction);
     size_t real_index = (_front + human_index) % _mem._capacity;
@@ -312,7 +332,6 @@ void Vector<T>::insert(T elem, size_t human_index) {
 
 template <typename T>
 void Vector<T>::pop_front(size_t count) {
-
     if (_mem._size < count) {
         throw std::logic_error("daun");
     }
@@ -327,7 +346,6 @@ void Vector<T>::pop_front(size_t count) {
 
 template <typename T>
 void Vector<T>::pop_back(size_t count) {
-
     if (_mem._size < count) {
         throw std::logic_error("daun");
     }
@@ -342,7 +360,6 @@ void Vector<T>::pop_back(size_t count) {
 
 template <typename T>
 void Vector<T>::erase(size_t human_index, size_t count) {
-
     if (human_index > _mem._size - 1) {
         throw std::logic_error("daun");
     }
@@ -380,7 +397,6 @@ void Vector<T>::erase(size_t human_index, size_t count) {
 
 template <typename T>
 void Vector<T>::push_front(std::initializer_list<T> other) noexcept {
-
     if (is_empty()) {
         _front = 0;
         _back = other.size() - 1;
@@ -398,7 +414,6 @@ void Vector<T>::push_front(std::initializer_list<T> other) noexcept {
     for (T element : other) {
         _mem._data[index] = element;
         index = (index + 1) % _mem._capacity;
-
     }
 
     _mem._size += other.size();
@@ -406,7 +421,6 @@ void Vector<T>::push_front(std::initializer_list<T> other) noexcept {
 
 template <typename T>
 void Vector<T>::push_back(std::initializer_list<T> other) noexcept {
-
     if (is_empty()) {
         _front = 0;
         _back = -1;
@@ -431,7 +445,6 @@ void Vector<T>::push_back(std::initializer_list<T> other) noexcept {
 
 template <typename T>
 void Vector<T>::insert(std::initializer_list<T> other, size_t human_index) {
-
     if (human_index > _mem._size) {
         throw std::logic_error("daun");
     }
@@ -455,8 +468,10 @@ void Vector<T>::insert(std::initializer_list<T> other, size_t human_index) {
     }
 
     DirectionToShift direction;
-    if (human_index < _mem._size / 2) direction = _Left;
-    else direction = _Right;
+    if (human_index < _mem._size / 2)
+        direction = _Left;
+    else
+        direction = _Right;
 
     push_elements_to_insert(human_index, direction, other.size());
     size_t real_index = (_front + human_index) % _mem._capacity;
@@ -555,26 +570,28 @@ T& Vector<T>::operator[](size_t human_index) noexcept {
 }
 
 template <typename T>
-void Vector<T>::push_elements_to_insert(size_t human_index, DirectionToShift direction, size_t count) {
+void Vector<T>::push_elements_to_insert(size_t human_index,
+    DirectionToShift direction,
+    size_t count) {
     size_t real_index = (_front + human_index) % _mem._capacity;
     size_t real_new_index;
 
     if (direction == _Left) {
-
-        for (size_t i = _front; i != real_index + 1; i = (i + 1) % _mem._capacity) {
+        for (size_t i = _front; i != real_index + 1;
+            i = (i + 1) % _mem._capacity) {
             real_new_index = (i - count + _mem._capacity) % _mem._capacity;
             _mem._data[real_new_index] = _mem._data[i];
-
         }
 
         _front = (_front - count + _mem._capacity) % _mem._capacity;
         return;
     }
     if (direction == _Right) {
+        size_t end_index =
+            (real_index == 0) ? _mem._capacity - 1 : real_index - 1;
 
-        size_t end_index = (real_index == 0) ? _mem._capacity - 1 : real_index - 1;
-
-        for (size_t i = (_back + count) % _mem._capacity; i != end_index; i = (i - 1 + _mem._capacity) % _mem._capacity) {
+        for (size_t i = (_back + count) % _mem._capacity; i != end_index;
+            i = (i - 1 + _mem._capacity) % _mem._capacity) {
             real_new_index = (i - count + _mem._capacity) % _mem._capacity;
             _mem._data[i] = _mem._data[real_new_index];
         }
@@ -587,13 +604,15 @@ void Vector<T>::push_elements_to_insert(size_t human_index, DirectionToShift dir
 }
 
 template <typename T>
-void Vector<T>::push_elements_to_erase(size_t human_index, DirectionToShift direction, size_t count) {
+void Vector<T>::push_elements_to_erase(size_t human_index,
+    DirectionToShift direction,
+    size_t count) {
     size_t left_count = human_index;
     size_t right_count = _mem._size - human_index - count;
 
     if (direction == _Left) {
-
-        size_t copy_start_index = (_front + human_index + count) % _mem._capacity;
+        size_t copy_start_index =
+            (_front + human_index + count) % _mem._capacity;
         size_t remove_start_index = (_front + human_index) % _mem._capacity;
 
         for (size_t i = 0; i < right_count; ++i) {
@@ -607,7 +626,6 @@ void Vector<T>::push_elements_to_erase(size_t human_index, DirectionToShift dire
         return;
     }
     if (direction == _Right) {
-
         for (size_t i = left_count; i > 0; --i) {
             size_t copy_index = (_front + i - 1) % _mem._capacity;
             size_t remove_index = (_front + i - 1 + count) % _mem._capacity;
@@ -633,9 +651,11 @@ template <typename T>
 void Vector<T>::shuffle() noexcept {
     if (_mem._size <= 1) return;
 
+    std::random_device rd;
+    std::mt19937 gen(rd());
     T tmp;
     for (size_t i = _mem._size - 1; i > 0; --i) {
-        size_t j = rand() % (i + 1);
+        size_t j = std::uniform_int_distribution<size_t>(0, i)(gen);
         tmp = (*this)[i];
         (*this)[i] = (*this)[j];
         (*this)[j] = tmp;
@@ -644,18 +664,15 @@ void Vector<T>::shuffle() noexcept {
 
 template <typename T>
 void Vector<T>::selection_sort() noexcept {
-
     if (_mem._size <= 1) return;
 
     for (size_t i = 0; i < _mem._size - 1; i++) {
         size_t min_index = i;
 
         for (size_t j = i + 1; j < _mem._size; j++) {
-
             if ((*this)[j] < (*this)[min_index]) {
                 min_index = j;
             }
-
         }
 
         if (min_index != i) {
@@ -664,7 +681,6 @@ void Vector<T>::selection_sort() noexcept {
             (*this)[min_index] = temp;
         }
     }
-
 }
 
 template <typename T>

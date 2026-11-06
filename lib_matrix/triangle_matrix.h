@@ -1,11 +1,16 @@
+// Copyright 2026 Danila Puzanov
+
 #pragma once
-#include "matrix.h"
+
+#include <initializer_list>
+#include "../lib_matrix/matrix.h"
 
 template <typename T>
 class TriangleMatrix : public Matrix<T> {
 public:
-    TriangleMatrix(size_t n = 1);
+    explicit TriangleMatrix(size_t n = 1);
     TriangleMatrix(std::initializer_list<std::initializer_list<T>> data);
+    // NOLINTNEXTLINE(runtime/explicit)
     TriangleMatrix(const MathVector<MathVector<T>>& vec);
 
     TriangleMatrix(const TriangleMatrix<T>&) = default;
@@ -20,14 +25,17 @@ public:
 };
 
 template <typename T>
-TriangleMatrix<T>::TriangleMatrix(size_t n) : Matrix<T>(n, n) { //утечка памяти
+TriangleMatrix<T>::TriangleMatrix(size_t n)
+    : Matrix<T>(n, n) {  // утечка памяти
     for (size_t i = 0; i < n; i++) {
         (*this)[i] = MathVector<T>(n - i, nullptr, i);
     }
 }
 
 template <typename T>
-TriangleMatrix<T>::TriangleMatrix(std::initializer_list<std::initializer_list<T>> data) : Matrix<T>(data) {
+TriangleMatrix<T>::TriangleMatrix(
+    std::initializer_list<std::initializer_list<T>> data)
+    : Matrix<T>(data) {
     size_t n = data.size();
 
     if (data.begin()->size() != n) {
@@ -39,7 +47,8 @@ TriangleMatrix<T>::TriangleMatrix(std::initializer_list<std::initializer_list<T>
 
         for (size_t j = 0; j < n; j++) {
             if (j < i && (*this)[i][j] != T()) {
-                throw std::invalid_argument("Elements below the diagonal must be zero");
+                throw std::invalid_argument(
+                    "Elements below the diagonal must be zero");
             }
 
             if (j >= i) row[j] = (*this)[i][j];
@@ -50,7 +59,8 @@ TriangleMatrix<T>::TriangleMatrix(std::initializer_list<std::initializer_list<T>
 }
 
 template <typename T>
-TriangleMatrix<T>::TriangleMatrix(const MathVector<MathVector<T>>& vec) : Matrix<T>(vec) {}
+TriangleMatrix<T>::TriangleMatrix(const MathVector<MathVector<T>>& vec)
+    : Matrix<T>(vec) {}
 
 template <typename T>
 inline size_t TriangleMatrix<T>::size() const noexcept {
