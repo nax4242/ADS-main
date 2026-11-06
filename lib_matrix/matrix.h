@@ -1,0 +1,141 @@
+#pragma once
+#include "math_vector.h"
+
+template <typename T>
+class Matrix : public MathVector<MathVector<T>> {
+public:
+    Matrix(size_t rows = 1, size_t cols = 1);
+    Matrix(std::initializer_list<std::initializer_list<T>> data);
+
+    Matrix(const Matrix<T>&) = default;
+    Matrix(Matrix<T>&&) noexcept = default;
+
+    Matrix(const MathVector<MathVector<T>>& vec);
+    ~Matrix() = default;
+
+    inline size_t rows() const noexcept;
+    inline size_t cols() const noexcept;
+
+    using MathVector<MathVector<T>>::operator*;
+
+    Matrix<T>& operator=(const Matrix<T>&) = default;
+    Matrix<T>& operator=(Matrix<T>&&) noexcept = default;
+    Matrix<T> operator*(const Matrix<T>& other) const;
+
+    Matrix<T> transpose() const;
+};
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix<T>& m) {
+    for (size_t i = 0; i < m.rows(); i++) {
+        os << "[ ";
+
+        for (size_t j = 0; j < m.cols(); j++) {
+            if (j < m[i].start_index()) os << T() << ' ';
+            else os << m[i][j] << ' ';
+        }
+
+        os << "]";
+
+        if (i + 1 < m.rows()) os << '\n';
+    }
+
+    return os;
+}
+
+template <typename T>
+std::istream& operator>>(std::istream& is, Matrix<T>& m) {
+    Matrix<T> tmp(m);
+
+    for (size_t i = 0; i < tmp.rows(); i++) {
+        const size_t start = tmp[i].start_index();
+        const size_t width = start + tmp[i].size();
+
+        for (size_t j = 0; j < width; j++) {
+            T value;
+
+            if (!(is >> value)) return is;
+
+            if (j < start) {
+                if (value != T()) {
+                    throw std::invalid_argument("Elements below the diagonal must be zero");
+                }
+            } else {
+                tmp[i][j] = value;
+            }
+        }
+    }
+
+    m = std::move(tmp);
+    return is;
+}
+
+template <typename T>
+Matrix<T>::Matrix(size_t rows, size_t cols) : MathVector<MathVector<T>>(rows) {
+    for (size_t i = 0; i < rows; i++) {
+        (*this)[i] = MathVector<T>(cols);
+    }
+}
+
+template <typename T>
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> data) : MathVector<MathVector<T>>(data.size()) {
+    size_t expected_row_size = data.begin()->size();
+
+    size_t i = 0;
+    for (const auto& row : data) {
+        if (row.size() != expected_row_size) {
+            throw std::invalid_argument("All rows must have the same number of columns");
+        }
+
+        (*this)[i] = MathVector<T>(row);
+        i++;
+    }
+}
+
+template <typename T>
+Matrix<T>::Matrix(const MathVector<MathVector<T>>& vec) : MathVector<MathVector<T>>(vec) {}
+
+template <typename T>
+inline size_t Matrix<T>::rows() const noexcept {
+    return this->size();
+}
+
+template <typename T>
+inline size_t Matrix<T>::cols() const noexcept {
+    return (*this)[0].size();
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
+    if (cols() != other.rows()) {
+        throw std::invalid_argument("Matrix dimensions incompatible for multiplication");
+    }
+
+    Matrix<T> result(rows(), other.cols());
+    for (int i = 0; i < rows(); i++) {
+        for (int j = 0; j < other.cols(); j++) {
+            double sum = 0;
+
+            for (int k = 0; k < cols(); k++) {
+                sum += (*this)[i][k] * other[k][j];
+            }
+
+            result[i][j] = sum;
+        }
+    }
+
+    return result;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::transpose() const {
+    Matrix<T> result(cols(), rows());
+
+    for (int i = 0; i < rows(); i++) {
+        for (int j = 0; j < cols(); j++) {
+            result[j][i] = (*this)[i][j];
+        }
+    }
+
+    return result;
+}
