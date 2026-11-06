@@ -1,6 +1,6 @@
 #include "bit_field.h"
 
-BitField::BitField(size_t N) : _N(N) {
+BitField::BitField(size_t N) : _N(N) { // проверить на 0
 	_data = new unsigned int[get_data_size()]();
 }
 
@@ -133,6 +133,8 @@ BitField& BitField::operator|=(const BitField& other) {
 
 bool BitField::operator==(const BitField& other) const noexcept {
 	if (_N != other._N) return false;
+
+	if (this == &other) return true;
 
 	for (size_t i = 0; i < get_data_size(); i++) {
 		if (_data[i] != other._data[i]) return false;

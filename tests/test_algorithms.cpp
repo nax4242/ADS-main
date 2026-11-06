@@ -207,6 +207,7 @@ TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test3) {
     expected_result = -expected_result;
 
     expected_result.erase(1);
+
     Set actual_result = sieve_of_eratosthenes(1);
     EXPECT_EQ(expected_result, actual_result);
 }

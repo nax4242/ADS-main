@@ -7,7 +7,7 @@ class BitField {
     size_t _N;
 
 public:
-    explicit BitField(size_t N = 1);
+    BitField(size_t N = 1);
     BitField(const BitField& other);
     BitField(BitField&& other) noexcept;
 

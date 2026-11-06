@@ -44,8 +44,6 @@ TStackOnMass<T>::TStackOnMass(const TStackOnMass& other) {
 template <typename T>
 TStackOnMass<T>::~TStackOnMass() {
 	delete[]_data;
-	_size = 0;
-	_top = -1;
 }
 
 template <typename T>
