@@ -1,9 +1,11 @@
+//Copyright 2026 Danila Puzanov
 #pragma once
 
 #include <stdexcept>
-#include "stack_on_mass.h"
-#include "set.h"
-
+#include <string>
+#include "../lib_stack_on_mass/stack_on_mass.h"
+#include "../lib_set/set.h"
+                                                                                
 float division(int a, int b);
 
 bool check_brackets(std::string expression);
