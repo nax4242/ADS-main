@@ -30,7 +30,6 @@ class TQueueOnMass {
 template <typename T>
 TQueueOnMass<T>::TQueueOnMass(size_t size) :
     _size(size), _count(0), _front(0), _back(0) {
-
     _data = new T[_size];
 }
 
@@ -38,7 +37,6 @@ template <typename T>
 TQueueOnMass<T>::TQueueOnMass(const TQueueOnMass& other) :
     _size(other._size), _count(other._count),
     _front(other._front), _back(other._back) {
-
     _data = new T[_size];
 
     size_t this_index = 0, other_index = 0;
