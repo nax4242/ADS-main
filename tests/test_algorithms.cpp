@@ -167,39 +167,39 @@ TEST(TestCheckBrackets, deep_nesting_missing_one_closing) {
 }
 
 TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test1) {
-	Set expected_result(10);
+    Set expected_result(10);
     expected_result = -expected_result;
 
-	expected_result.erase(1);
-	expected_result.erase(4);
-	expected_result.erase(6);
-	expected_result.erase(8);
-	expected_result.erase(9);
+    expected_result.erase(1);
+    expected_result.erase(4);
+    expected_result.erase(6);
+    expected_result.erase(8);
+    expected_result.erase(9);
     expected_result.erase(10);
 
-	Set actual_result = sieve_of_eratosthenes(10);
-	EXPECT_EQ(expected_result, actual_result);
+    Set actual_result = sieve_of_eratosthenes(10);
+    EXPECT_EQ(expected_result, actual_result);
 }
 
 TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test2) {
-	Set expected_result(20);
-	expected_result = -expected_result;
-
-	expected_result.erase(1);
-	expected_result.erase(4);
-	expected_result.erase(6);
-	expected_result.erase(8);
-	expected_result.erase(9);
-	expected_result.erase(10);
-	expected_result.erase(12);
-	expected_result.erase(14);
-	expected_result.erase(15);
-	expected_result.erase(16);
-	expected_result.erase(18);
+    Set expected_result(20);
+    expected_result = -expected_result;
+    
+    expected_result.erase(1);
+    expected_result.erase(4);
+    expected_result.erase(6);
+    expected_result.erase(8);
+    expected_result.erase(9);
+    expected_result.erase(10);
+    expected_result.erase(12);
+    expected_result.erase(14);
+    expected_result.erase(15);
+    expected_result.erase(16);
+    expected_result.erase(18);
     expected_result.erase(20);
 
-	Set actual_result = sieve_of_eratosthenes(20);
-	EXPECT_EQ(expected_result, actual_result);
+    Set actual_result = sieve_of_eratosthenes(20);
+    EXPECT_EQ(expected_result, actual_result);
 }
 
 TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test3) {

@@ -54,5 +54,5 @@ inline size_t BitField::get_data_size() const noexcept {
 }
 
 inline size_t BitField::get_size() const noexcept {
-	return _N;
+    return _N;
 }
