@@ -1,9 +1,12 @@
 #pragma once
+
+// Copyright 2026 Danila Puzanov
 #include <stdexcept>
+#include <utility>
 
 template <typename T>
 class MultiStack {
-    static const size_t DEFAULT_ONE_STACK_SIZE = 5;
+    static const size_t DEFAULT_STACK_SIZE = 5;
 
     T* _data;
     size_t _N;
@@ -12,8 +15,8 @@ class MultiStack {
     size_t* _rs;
     size_t* _tops;
 
-public:
-    MultiStack(size_t N = 1, size_t one_stack_size = DEFAULT_ONE_STACK_SIZE);
+ public:
+    explicit MultiStack(size_t N = 1, size_t one_stack_size = DEFAULT_STACK_SIZE);
     MultiStack(const MultiStack& other);
     MultiStack(MultiStack&& other) noexcept;
 
@@ -32,7 +35,7 @@ public:
     inline bool is_full(size_t index_of_stack) const;
     bool is_overflow() const noexcept;
 
-private:
+ private:
     void repack(size_t call_stack_index);
 };
 
@@ -92,8 +95,12 @@ MultiStack<T>& MultiStack<T>::operator=(MultiStack<T>&& other) noexcept {
 
 template <typename T>
 MultiStack<T>::MultiStack(size_t N, size_t one_stack_size) {
-    if (N == 0) throw std::invalid_argument("Stack count must be more than 0");
-    if (one_stack_size == 0) throw std::invalid_argument("One stack size must be more than 0");
+    if (N == 0) {
+        throw std::invalid_argument("Stack count must be more than 0");
+    }
+    if (one_stack_size == 0) {
+        throw std::invalid_argument("One stack size must be more than 0");
+    }
 
     _N = N;
     _full_size = one_stack_size * _N;
@@ -156,9 +163,15 @@ MultiStack<T>::~MultiStack() {
 
 template <typename T>
 void MultiStack<T>::push(const T& elem, size_t index_of_stack) {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
-    if (is_overflow()) throw std::overflow_error("All stacks are full");
-    if (is_full(index_of_stack)) repack(index_of_stack);
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
+    if (is_overflow()) {
+        throw std::overflow_error("All stacks are full");
+    }
+    if (is_full(index_of_stack)) {
+        repack(index_of_stack);
+    }
 
     _tops[index_of_stack]++;
     _data[_tops[index_of_stack]] = elem;
@@ -166,8 +179,12 @@ void MultiStack<T>::push(const T& elem, size_t index_of_stack) {
 
 template <typename T>
 T MultiStack<T>::pop(size_t index_of_stack) {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
-    if (is_empty(index_of_stack)) throw std::underflow_error("Stack is empty");
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
+    if (is_empty(index_of_stack)) {
+        throw std::underflow_error("Stack is empty");
+    }
 
     _tops[index_of_stack]--;
     return _data[_tops[index_of_stack] + 1];
@@ -175,29 +192,39 @@ T MultiStack<T>::pop(size_t index_of_stack) {
 
 template <typename T>
 inline T& MultiStack<T>::top(size_t index_of_stack) const {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
-    if (is_empty(index_of_stack)) throw std::underflow_error("Stack is empty");
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
+    if (is_empty(index_of_stack)) {
+        throw std::underflow_error("Stack is empty");
+    }
 
     return _data[_tops[index_of_stack]];
 }
 
 template <typename T>
 inline size_t MultiStack<T>::size(size_t index_of_stack) const {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
 
     return _rs[index_of_stack] - _ls[index_of_stack] + 1;
 }
 
 template <typename T>
 inline bool MultiStack<T>::is_empty(size_t index_of_stack) const {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
 
     return _tops[index_of_stack] == _ls[index_of_stack] - 1;
 }
 
 template <typename T>
 inline bool MultiStack<T>::is_full(size_t index_of_stack) const {
-    if (index_of_stack >= _N) throw std::invalid_argument("Invalid index of stack");
+    if (index_of_stack >= _N) {
+        throw std::invalid_argument("Invalid index of stack");
+    }
 
     return _tops[index_of_stack] == _rs[index_of_stack];
 }
