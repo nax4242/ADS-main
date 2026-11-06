@@ -1,7 +1,13 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "parameters.h"
-#include "triangle_matrix.h"
+#include <sstream>
 #include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+#include "../lib_matrix/triangle_matrix.h"
+#include "../tests/parameters.h"
 
 #ifdef TRIANGLE_MATRIX_TESTS
 
@@ -55,11 +61,13 @@ TEST(TriangleMatrix, InitializerListReadsAllElements) {
 }
 
 TEST(TriangleMatrix, NonSquareInitializerThrows) {
-    EXPECT_THROW((TriangleMatrix<int>({ {1, 2, 3}, {0, 1, 2} })), std::invalid_argument);
+    EXPECT_THROW((TriangleMatrix<int>({ {1, 2, 3}, {0, 1, 2} })),
+        std::invalid_argument);
 }
 
 TEST(TriangleMatrix, NonZeroBelowDiagonalInInitializerThrows) {
-    EXPECT_THROW((TriangleMatrix<int>({ {1, 2}, {3, 4} })), std::invalid_argument);
+    EXPECT_THROW((TriangleMatrix<int>({ {1, 2}, {3, 4} })),
+        std::invalid_argument);
 }
 
 TEST(TriangleMatrix, WriteAboveAndOnDiagonal) {
@@ -213,7 +221,7 @@ TEST(TriangleMatrix, MovedToMatrixIsUsable) {
 }
 
 TEST(TriangleMatrix, OutputPrintsFullSquare) {
-    TriangleMatrix<int> A({ { 1, 2, 3 },{ 0, 4, 5 },{ 0, 0, 6 } });
+    TriangleMatrix<int> A({ { 1, 2, 3 }, { 0, 4, 5 }, { 0, 0, 6 } });
     std::ostringstream os;
     os << A;
     EXPECT_EQ(os.str(), "[ 1 2 3 ]\n[ 0 4 5 ]\n[ 0 0 6 ]");
@@ -242,7 +250,8 @@ TEST(TriangleMatrix, InputNonZeroBelowDiagonalThrows) {
 
 TEST(TriangleMatrix, InputThrowKeepsOriginalMatrix) {
     auto A = make5();
-    std::istringstream is("1 1 1 1 1  1 1 1 1 1  1 1 1 1 1  1 1 1 1 1  1 1 1 1 1");
+    std::istringstream is(
+        "1 1 1 1 1  1 1 1 1 1  1 1 1 1 1  1 1 1 1 1  1 1 1 1 1");
     EXPECT_THROW(is >> A, std::invalid_argument);
     EXPECT_EQ(A[0][0], 3);
     EXPECT_EQ(A[1][3], 5);
@@ -261,7 +270,7 @@ TEST(TriangleMatrix, InputDoesNotConsumeExtraValues) {
 
 TEST(TriangleMatrix, InputNotEnoughDataSetsFail) {
     TriangleMatrix<int> A(3);
-    std::istringstream is("1 2 3 0 4 5 0 0");   // 8 из 9
+    std::istringstream is("1 2 3 0 4 5 0 0");
     is >> A;
     EXPECT_TRUE(is.fail());
 }

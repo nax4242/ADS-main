@@ -1,8 +1,13 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "parameters.h"
-#include "matrix.h"
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
+#include <string>
+#include <utility>
+#include <vector>
+#include "../lib_matrix/matrix.h"
+#include "../tests/parameters.h"
 
 #ifdef MATRIX_TESTS
 
@@ -33,7 +38,7 @@ TEST(MatrixTest, DefaultConstructedStartIndexIsZero) {
 
 TEST(MatrixTest, DefaultConstructedCanBeAssignedOver) {
     Matrix<int> m;
-    Matrix<int> src{ { 1, 2, 3 },{ 4, 5, 6 } };
+    Matrix<int> src{ { 1, 2, 3 }, { 4, 5, 6 } };
     m = src;
     EXPECT_EQ(m.rows(), 2);
     EXPECT_EQ(m.cols(), 3);
@@ -42,7 +47,7 @@ TEST(MatrixTest, DefaultConstructedCanBeAssignedOver) {
 
 TEST(MatrixTest, DefaultConstructedCanBeMovedOver) {
     Matrix<int> m;
-    m = Matrix<int>{ { 1, 2 },{ 3, 4 } };
+    m = Matrix<int>{ { 1, 2 }, { 3, 4 } };
     EXPECT_EQ(m.rows(), 2);
     EXPECT_EQ(m[1][1], 4);
 }
@@ -128,7 +133,8 @@ TEST(MatrixTest, CopyConstructor) {
 
 TEST(MatrixTest, EmptyMatrixThrows) {
     EXPECT_THROW(Matrix<int>(0, 0), std::logic_error);
-    EXPECT_THROW((Matrix<int>(std::initializer_list<std::initializer_list<int>>{})), std::logic_error);
+    using InitList = std::initializer_list<std::initializer_list<int>>;
+    EXPECT_THROW((Matrix<int>(InitList{})), std::logic_error);
 }
 
 TEST(MatrixTest, ZeroRowsThrows) {
@@ -249,7 +255,7 @@ TEST(MatrixTest, OutputOperator) {
 }
 
 TEST(MatrixTest, CopyConstructorIsIndependent) {
-    Matrix<int> m1{ { 1, 2 },{ 3, 4 } };
+    Matrix<int> m1{ { 1, 2 }, { 3, 4 } };
     Matrix<int> m2(m1);
     m2[0][0] = 100;
     EXPECT_EQ(m1[0][0], 1);
@@ -257,7 +263,7 @@ TEST(MatrixTest, CopyConstructorIsIndependent) {
 }
 
 TEST(MatrixTest, CopyAssignment) {
-    Matrix<int> src{ { 1, 2, 3 },{ 4, 5, 6 } };
+    Matrix<int> src{ { 1, 2, 3 }, { 4, 5, 6 } };
     Matrix<int> dst(1, 1);
     dst = src;
     EXPECT_EQ(dst.rows(), 2);
@@ -268,7 +274,7 @@ TEST(MatrixTest, CopyAssignment) {
 }
 
 TEST(MatrixTest, CopyAssignmentSelfAssignment) {
-    Matrix<int> m{ { 1, 2 },{ 3, 4 } };
+    Matrix<int> m{ { 1, 2 }, { 3, 4 } };
     Matrix<int>& ref = m;
     m = ref;
     EXPECT_EQ(m.rows(), 2);
@@ -276,7 +282,7 @@ TEST(MatrixTest, CopyAssignmentSelfAssignment) {
 }
 
 TEST(MatrixTest, MoveConstructor) {
-    Matrix<int> src{ { 1, 2 },{ 3, 4 } };
+    Matrix<int> src{ { 1, 2 }, { 3, 4 } };
     Matrix<int> dst(std::move(src));
     EXPECT_EQ(dst.rows(), 2);
     EXPECT_EQ(dst.cols(), 2);
@@ -285,7 +291,7 @@ TEST(MatrixTest, MoveConstructor) {
 }
 
 TEST(MatrixTest, MoveAssignment) {
-    Matrix<int> src{ { 1, 2, 3 },{ 4, 5, 6 } };
+    Matrix<int> src{ { 1, 2, 3 }, { 4, 5, 6 } };
     Matrix<int> dst(1, 1);
     dst = std::move(src);
     EXPECT_EQ(dst.rows(), 2);
@@ -294,7 +300,7 @@ TEST(MatrixTest, MoveAssignment) {
 }
 
 TEST(MatrixTest, MovedToMatrixIsUsable) {
-    Matrix<int> src{ { 1, 2 },{ 3, 4 } };
+    Matrix<int> src{ { 1, 2 }, { 3, 4 } };
     Matrix<int> dst(std::move(src));
     Matrix<int> r = dst + Matrix<int>{ {1, 1}, { 1, 1 } };
     EXPECT_EQ(r[0][0], 2);
@@ -302,7 +308,7 @@ TEST(MatrixTest, MovedToMatrixIsUsable) {
 }
 
 TEST(MatrixTest, OutputOperatorRectangular) {
-    Matrix<int> m{ { 1, 2, 3 },{ 4, 5, 6 } };
+    Matrix<int> m{ { 1, 2, 3 }, { 4, 5, 6 } };
     std::ostringstream os;
     os << m;
     EXPECT_EQ(os.str(), "[ 1 2 3 ]\n[ 4 5 6 ]");
@@ -327,7 +333,7 @@ TEST(MatrixTest, InputOperatorNotEnoughDataSetsFail) {
 }
 
 TEST(MatrixTest, InputOutputRoundTrip) {
-    Matrix<int> a{ { 1, 2 },{ 3, 4 } };
+    Matrix<int> a{ { 1, 2 }, { 3, 4 } };
     std::ostringstream os;
     os << a;
 

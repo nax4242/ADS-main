@@ -1,7 +1,11 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "math_vector.h"
+#include <sstream>
 #include <stdexcept>
-#include "parameters.h"
+#include <utility>
+#include "../lib_matrix/math_vector.h"
+#include "../tests/parameters.h"
 
 #ifdef MATH_VECTOR_TESTS
 
