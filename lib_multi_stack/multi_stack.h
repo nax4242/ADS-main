@@ -6,7 +6,7 @@
 
 template <typename T>
 class MultiStack {
-    static const size_t DEFAULT_STACK_SIZE = 5;
+    static const size_t DEF_STACK_SIZE = 5;
 
     T* _data;
     size_t _N;
@@ -16,7 +16,7 @@ class MultiStack {
     size_t* _tops;
 
  public:
-    explicit MultiStack(size_t N = 1, size_t one_stack_size = DEFAULT_STACK_SIZE);
+    explicit MultiStack(size_t N = 1, size_t one_stack_size = DEF_STACK_SIZE);
     MultiStack(const MultiStack& other);
     MultiStack(MultiStack&& other) noexcept;
 
