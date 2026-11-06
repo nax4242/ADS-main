@@ -41,8 +41,7 @@ TEST(TestSet, can_create_with_copy_constructor) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s2.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s2.is_member(i));
         }
     }
@@ -61,8 +60,7 @@ TEST(TestSet, can_create_with_move_constructor) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s2.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s2.is_member(i));
         }
     }
@@ -83,8 +81,7 @@ TEST(TestSet, can_create_with_bitfield_constructor) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -103,8 +100,7 @@ TEST(TestSet, can_bitfield_operator) {
     for (size_t i = 0; i < 5; i++) {
         if (i == 1 || i == 3) {
             EXPECT_TRUE(bf.get_bit(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(bf.get_bit(i));
         }
     }
@@ -119,8 +115,7 @@ TEST(TestSet, can_insert_elements) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -143,8 +138,7 @@ TEST(TestSet, can_erase_elements) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -235,8 +229,7 @@ TEST(TestSet, can_assign_with_copy) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s2.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s2.is_member(i));
         }
     }
@@ -257,8 +250,7 @@ TEST(TestSet, can_assign_with_move) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s2.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s2.is_member(i));
         }
     }
@@ -282,8 +274,7 @@ TEST(TestSet, can_plus_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 3 || i == 4) {
             EXPECT_TRUE(s3.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s3.is_member(i));
         }
     }
@@ -312,8 +303,7 @@ TEST(TestSet, can_minus_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2) {
             EXPECT_TRUE(s3.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s3.is_member(i));
         }
     }
@@ -342,8 +332,7 @@ TEST(TestSet, can_multiply_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 4) {
             EXPECT_TRUE(s3.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s3.is_member(i));
         }
     }
@@ -369,8 +358,7 @@ TEST(TestSet, can_negate_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_FALSE(s2.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_TRUE(s2.is_member(i));
         }
     }
@@ -392,8 +380,7 @@ TEST(TestSet, can_plus_assign_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 3 || i == 4) {
             EXPECT_TRUE(s1.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s1.is_member(i));
         }
     }
@@ -422,8 +409,7 @@ TEST(TestSet, can_minus_assign_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2) {
             EXPECT_TRUE(s1.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s1.is_member(i));
         }
     }
@@ -452,8 +438,7 @@ TEST(TestSet, can_multiply_assign_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 4) {
             EXPECT_TRUE(s1.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s1.is_member(i));
         }
     }
@@ -527,8 +512,7 @@ TEST(TestSet, can_input_operator) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -566,8 +550,7 @@ TEST(TestSet, can_input_operator_error_over_range) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -588,8 +571,7 @@ TEST(TestSet, can_input_operator_error_under_range) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -610,8 +592,7 @@ TEST(TestSet, can_input_operator_error_missing_open_brace) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -632,8 +613,7 @@ TEST(TestSet, can_input_operator_error_missing_close_brace) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -654,8 +634,7 @@ TEST(TestSet, can_input_operator_error_missing_comma) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }
@@ -676,8 +655,7 @@ TEST(TestSet, can_input_operator_error_alpha) {
     for (size_t i = 1; i <= 5; i++) {
         if (i == 2 || i == 4) {
             EXPECT_TRUE(s.is_member(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(s.is_member(i));
         }
     }

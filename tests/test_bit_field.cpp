@@ -154,8 +154,7 @@ TEST(BitFieldTest, can_not_operator) {
     for (size_t i = 0; i < bf2.get_size(); i++) {
         if (i == 3 || i == 5) {
             EXPECT_FALSE(bf2.get_bit(i));
-        }
-        else {
+        } else {
             EXPECT_TRUE(bf2.get_bit(i));
         }
     }
@@ -255,8 +254,7 @@ TEST(BitFieldTest, can_input_operator) {
     for (size_t i = 0; i < bf.get_size(); i++) {
         if (i == 3 || i == 5) {
             EXPECT_TRUE(bf.get_bit(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(bf.get_bit(i));
         }
     }
@@ -277,8 +275,7 @@ TEST(BitFieldTest, can_input_operator_error_alpha) {
     for (size_t i = 0; i < bf.get_size(); i++) {
         if (i == 3 || i == 5) {
             EXPECT_TRUE(bf.get_bit(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(bf.get_bit(i));
         }
     }
@@ -299,8 +296,7 @@ TEST(BitFieldTest, can_input_operator_error_space) {
     for (size_t i = 0; i < bf.get_size(); i++) {
         if (i == 3 || i == 5) {
             EXPECT_TRUE(bf.get_bit(i));
-        }
-        else {
+        } else {
             EXPECT_FALSE(bf.get_bit(i));
         }
     }
