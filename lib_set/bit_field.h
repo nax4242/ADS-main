@@ -1,4 +1,6 @@
 #pragma once
+
+// Copyright 2026 Danila Puzanov
 #include <stdexcept>
 #include <iostream>
 
@@ -6,8 +8,8 @@ class BitField {
     unsigned int* _data;
     size_t _N;
 
-public:
-    BitField(size_t N = 1);
+ public:
+    explicit BitField(size_t N = 1);
     BitField(const BitField& other);
     BitField(BitField&& other) noexcept;
 
@@ -21,7 +23,7 @@ public:
 
     BitField& operator=(const BitField& other);
     BitField& operator=(BitField&& other) noexcept;
-    
+
     BitField operator&(const BitField& other) const;
     BitField operator|(const BitField& other) const;
     BitField operator~() const;
@@ -35,7 +37,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const BitField& other);
     friend std::istream& operator>>(std::istream& is, BitField& other);
 
-private:
+ private:
     inline unsigned int get_mask(size_t pos) const noexcept;
     inline size_t get_index(size_t pos) const noexcept;
     inline size_t get_data_size() const noexcept;

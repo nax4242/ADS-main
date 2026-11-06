@@ -1,6 +1,8 @@
-#include "bit_field.h"
+// Copyright 2026 Danila Puzanov
+#include <utility>
+#include "../lib_set/bit_field.h"
 
-BitField::BitField(size_t N) : _N(N) { // проверить на 0
+BitField::BitField(size_t N) : _N(N) {  // проверить на 0
     _data = new unsigned int[get_data_size()]();
 }
 
@@ -26,20 +28,26 @@ BitField::~BitField() {
 
 
 void BitField::set_bit(size_t pos) {
-    if (pos >= _N) throw std::out_of_range("Element is greater than set power");
+    if (pos >= _N) {
+        throw std::out_of_range("Element is greater than set power");
+    }
 
     _data[get_index(pos)] |= get_mask(pos);
 }
 
-void BitField::reset_bit(size_t pos){
-    if (pos >= _N) throw std::out_of_range("Element is greater than set power");
+void BitField::reset_bit(size_t pos) {
+    if (pos >= _N) {
+        throw std::out_of_range("Element is greater than set power");
+    }
 
     _data[get_index(pos)] &= ~get_mask(pos);
 }
 
 
 bool BitField::get_bit(size_t pos) const {
-    if (pos >= _N) throw std::out_of_range("Element is greater than set power");
+    if (pos >= _N) {
+        throw std::out_of_range("Element is greater than set power");
+    }
 
     return _data[get_index(pos)] & get_mask(pos);
 }
@@ -68,7 +76,7 @@ BitField& BitField::operator=(BitField&& other) noexcept {
 
     _N = other._N;
     _data = other._data;
-    
+
     other._data = nullptr;
     other._N = 0;
 
@@ -166,8 +174,7 @@ std::istream& operator>>(std::istream& is, BitField& other) {
 
         if (c == '1') {
             tmp.set_bit(i);
-        }
-        else if (c != '0') {
+        } else if (c != '0') {
             is.setstate(std::ios::failbit);
             return is;
         }
