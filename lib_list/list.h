@@ -329,7 +329,9 @@ T List<T>::erase(Node* pos) {
     while (current_element != nullptr && current_element->_next != pos) {
         current_element = current_element->_next;
     }
-    if (current_element == nullptr) throw std::invalid_argument("Invalid pos to erase");
+    if (current_element == nullptr) {
+        throw std::invalid_argument("Invalid pos to erase");
+    }
 
     T popped = pos->_data;
     current_element->_next = pos->_next;
