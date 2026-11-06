@@ -2,7 +2,11 @@
 #include <utility>
 #include "../lib_set/bit_field.h"
 
-BitField::BitField(size_t N) : _N(N) {  // проверить на 0
+BitField::BitField(size_t N) : _N(N) {
+    if (N == 0) {
+        throw std::invalid_argument("Input Error: BitField power cannot be zero!");
+    }
+
     _data = new unsigned int[get_data_size()]();
 }
 
