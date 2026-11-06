@@ -1,5 +1,7 @@
 #pragma once
 
+// Copyright 2026 Danila Puzanov
+
 #define VECTOR_TESTS
 
 #define MEMDATA_TESTS
