@@ -1,4 +1,6 @@
 #pragma once
+
+// Copyright 2026 Danila Puzanov
 #include <stdexcept>
 
 template <typename T>
@@ -7,8 +9,8 @@ class TStackOnMass {
     size_t _size;
     size_t _top;
 
-public:
-    TStackOnMass(size_t size = 1);
+ public:
+    explicit TStackOnMass(size_t size = 1);
     TStackOnMass(const TStackOnMass& other);
 
     ~TStackOnMass();
