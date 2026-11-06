@@ -1,4 +1,6 @@
 #pragma once
+
+// Copyright 2026 Danila Puzanov
 #include <stdexcept>
 
 template <typename T>
@@ -9,8 +11,8 @@ class TQueueOnMass {
     size_t _front;
     size_t _back;
 
-public:
-    TQueueOnMass(size_t size = 1);
+ public:
+    explicit TQueueOnMass(size_t size = 1);
     TQueueOnMass(const TQueueOnMass& other);
 
     ~TQueueOnMass();
@@ -26,16 +28,24 @@ public:
 };
 
 template <typename T>
-TQueueOnMass<T>::TQueueOnMass(size_t size) : _size(size), _count(0), _front(0), _back(0) {
+TQueueOnMass<T>::TQueueOnMass(size_t size) :
+    _size(size), _count(0), _front(0), _back(0) {
+
     _data = new T[_size];
 }
 
 template <typename T>
-TQueueOnMass<T>::TQueueOnMass(const TQueueOnMass& other) : _size(other._size), _count(other._count), _front(other._front), _back(other._back) {
+TQueueOnMass<T>::TQueueOnMass(const TQueueOnMass& other) :
+    _size(other._size), _count(other._count),
+    _front(other._front), _back(other._back) {
+
     _data = new T[_size];
 
+    size_t this_index = 0, other_index = 0;
     for (size_t i = 0; i < _count; i++) {
-        _data[(_front + i) % _size] = other._data[(other._front + i) % other._size];
+        this_index = (_front + i) % _size;
+        other_index = (other._front + i) % other._size;
+        _data[this_index] = other._data[other_index];
     }
 }
 
@@ -79,14 +89,14 @@ inline T& TQueueOnMass<T>::front() {
     }
 
     return _data[_front];
-}    
+}
 
 template <typename T>
 inline bool TQueueOnMass<T>::is_empty() const noexcept {
     return _count == 0;
 }
 
-template <typename T>    
+template <typename T>
 inline bool TQueueOnMass<T>::is_full() const noexcept {
     return _count == _size;
 }
