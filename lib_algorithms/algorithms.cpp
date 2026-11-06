@@ -1,4 +1,5 @@
-//Copyright 2026 Danila Puzanov
+// Copyright 2026 Danila Puzanov
+#include <string>
 #include "../lib_algorithms/algorithms.h"
 
 float division(int a, int b) {
