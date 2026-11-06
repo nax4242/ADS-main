@@ -1,13 +1,16 @@
-#include "bit_field.h"
+#pragma once
 
-class Set { // [1, N]
+// Copyright 2026 Danila Puzanov
+#include "../lib_set/bit_field.h"
+
+class Set {  // [1, N]
     BitField _bit_field;
 
-public:
-    Set(size_t N = 1);
+ public:
+    explicit Set(size_t N = 1);
     Set(const Set& other);
     Set(Set&& other) noexcept;
-    Set(const BitField& bf);
+    explicit Set(const BitField& bf);
 
     operator BitField() const;
 
@@ -47,7 +50,9 @@ inline size_t Set::get_power() const noexcept {
 }
 
 inline bool Set::is_member(size_t element) const {
-    if (element > _bit_field.get_size() || element <= 0) throw std::out_of_range("Element out of range");
+    if (element > _bit_field.get_size() || element <= 0) {
+        throw std::out_of_range("Element out of range");
+    }
 
     return _bit_field.get_bit(element - 1);
 }

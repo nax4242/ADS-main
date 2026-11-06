@@ -1,7 +1,9 @@
-#include "set.h"
+// Copyright 2026 Danila Puzanov
+#include <utility>
+#include "../lib_set/set.h"
 
 Set::Set(size_t N) : _bit_field(N) {
-    if(N == 0) {
+    if (N == 0) {
         throw std::invalid_argument("Input Error: Set size cannot be zero!");
     }
 }
@@ -19,13 +21,17 @@ Set::operator BitField() const {
 
 
 void Set::insert(size_t element) {
-    if (element > _bit_field.get_size() || element <= 0) throw std::out_of_range("Element out of range");
+    if (element > _bit_field.get_size() || element <= 0) {
+        throw std::out_of_range("Element out of range");
+    }
 
     _bit_field.set_bit(element - 1);
 }
 
 void Set::erase(size_t element) {
-    if (element > _bit_field.get_size() || element <= 0) throw std::out_of_range("Element out of range");
+    if (element > _bit_field.get_size() || element <= 0) {
+        throw std::out_of_range("Element out of range");
+    }
 
     _bit_field.reset_bit(element - 1);
 }
@@ -34,7 +40,7 @@ void Set::erase(size_t element) {
 Set Set::operator+(size_t element) const {
     Set result(*this);
 
-    return result += element ;
+    return result += element;
 }
 
 Set Set::operator-(size_t element) const {
@@ -82,7 +88,7 @@ Set Set::operator+(const Set& other) const {
 
 Set Set::operator-(const Set& other) const {
     Set result(*this);
-    
+
     return result -= other;
 }
 
@@ -162,10 +168,9 @@ std::istream& operator>>(std::istream& is, Set& other) {
 
     if (is.peek() == '}') {
         is.get();
-    }
-    else {
+    } else {
         while (true) {
-            long long value;
+            int64_t value;
 
             if (!(is >> value)) return is;
 
