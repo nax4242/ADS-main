@@ -1,14 +1,15 @@
 #pragma once
+
+// Copyright 2026 Danila Puzanov
 #include <stdexcept>
 
 template <typename T>
 class List {
-
     struct Node {
         T _data;
         Node* _next;
 
-        Node(const T& data, Node* next = nullptr);
+        explicit Node(const T& data, Node* next = nullptr);
         Node(const Node&) = default;
         Node(Node&&) = default;
 
@@ -19,7 +20,7 @@ class List {
     Node* _tail;
     size_t _size;
 
-public:
+ public:
     List();
     List(const List& other);
     List(List&& other) noexcept;
@@ -44,7 +45,7 @@ public:
     inline size_t size() const noexcept;
     inline bool is_empty() const noexcept;
 
-private:
+ private:
     void clear() noexcept;
 };
 
@@ -107,7 +108,9 @@ List<T>::~List() {
 
 template <typename T>
 List<T>& List<T>::operator=(const List& other) {
-    if (this == &other) return *this;
+    if (this == &other) {
+        return *this;
+    }
 
     this->clear();
 
@@ -137,7 +140,9 @@ List<T>& List<T>::operator=(const List& other) {
 
 template <typename T>
 List<T>& List<T>::operator=(List&& other) noexcept {
-    if (this == &other) return *this;
+    if (this == &other) {
+        return *this;
+    }
 
     this->clear();
 
@@ -182,7 +187,9 @@ void List<T>::push_back(const T& element) {
 
 template <typename T>
 typename List<T>::Node* List<T>::insert(const T& element, size_t index) {
-    if (index > _size) throw std::out_of_range("Index is out of range");
+    if (index > _size) {
+        throw std::out_of_range("Index is out of range");
+    }
     if (index == 0) {
         push_front(element);
         return _head;
@@ -191,7 +198,7 @@ typename List<T>::Node* List<T>::insert(const T& element, size_t index) {
         push_back(element);
         return _tail;
     }
-    
+
     Node* current_element = _head;
     for (size_t i = 0; i < index - 1; i++) {
         current_element = current_element->_next;
@@ -207,7 +214,9 @@ typename List<T>::Node* List<T>::insert(const T& element, size_t index) {
 
 template <typename T>
 typename List<T>::Node* List<T>::insert(const T& element, Node* pos) {
-    if (pos == nullptr) throw std::invalid_argument("Can't insert before nullptr");
+    if (pos == nullptr) {
+        throw std::invalid_argument("Can't insert before nullptr");
+    }
     if (pos == _head) {
         push_front(element);
         return _head;
@@ -217,7 +226,9 @@ typename List<T>::Node* List<T>::insert(const T& element, Node* pos) {
     while (current_element != nullptr && current_element->_next != pos) {
         current_element = current_element->_next;
     }
-    if (current_element == nullptr) throw std::invalid_argument("Invalid pos to insert");
+    if (current_element == nullptr) {
+        throw std::invalid_argument("Invalid pos to insert");
+    }
 
     Node* new_node = new Node(element, pos);
     current_element->_next = new_node;
@@ -229,7 +240,9 @@ typename List<T>::Node* List<T>::insert(const T& element, Node* pos) {
 
 template <typename T>
 T List<T>::pop_front() {
-    if (is_empty()) throw std::underflow_error("Can't pop in empty list");
+    if (is_empty()) {
+        throw std::underflow_error("Can't pop in empty list");
+    }
 
     Node* old_head = _head;
     T popped = old_head->_data;
@@ -245,7 +258,9 @@ T List<T>::pop_front() {
 
 template <typename T>
 T List<T>::pop_back() {
-    if (is_empty()) throw std::underflow_error("Can't pop in empty list");
+    if (is_empty()) {
+        throw std::underflow_error("Can't pop in empty list");
+    }
 
     T popped = _tail->_data;
 
@@ -273,9 +288,15 @@ T List<T>::pop_back() {
 
 template <typename T>
 T List<T>::erase(size_t index) {
-    if (index >= _size) throw std::out_of_range("Index is out of range");
-    if (index == 0) return pop_front();
-    if (index == _size - 1) return pop_back();
+    if (index >= _size) {
+        throw std::out_of_range("Index is out of range");
+    }
+    if (index == 0) {
+        return pop_front();
+    }
+    if (index == _size - 1) {
+        return pop_back();
+    }
 
     Node* current_element = _head;
     for (size_t i = 0; i < index - 1; i++) {
@@ -294,9 +315,15 @@ T List<T>::erase(size_t index) {
 
 template <typename T>
 T List<T>::erase(Node* pos) {
-    if (pos == nullptr) throw std::invalid_argument("Can't erase nullptr");
-    if (pos == _head) return pop_front();
-    if (pos == _tail) return pop_back();
+    if (pos == nullptr) {
+        throw std::invalid_argument("Can't erase nullptr");
+    }
+    if (pos == _head) {
+        return pop_front();
+    }
+    if (pos == _tail) {
+        return pop_back();
+    }
 
     Node* current_element = _head;
     while (current_element != nullptr && current_element->_next != pos) {
