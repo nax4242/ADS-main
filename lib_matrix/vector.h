@@ -16,13 +16,13 @@ class Vector {
     size_t _front;
     size_t _back;
 
-public:
+ public:
     template <typename Type>
     class Iterator {
         Vector<T>* _vec;
         size_t _pos;
 
-    public:
+     public:
         Iterator() : _vec(nullptr), _pos(0) {}
         Iterator(Vector<T>* vec, size_t pos) : _vec(vec), _pos(pos) {}
 
@@ -138,7 +138,7 @@ public:
 
     void shrink_to_fit();
 
-private:
+ private:
     void push_elements_to_insert(size_t, DirectionToShift, size_t = 1);
     void push_elements_to_erase(size_t, DirectionToShift, size_t = 1);
     void reset_memory(size_t);

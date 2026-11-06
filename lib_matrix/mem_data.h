@@ -19,7 +19,7 @@ class MemData {
     size_t _capacity;
     T* _data;
 
-public:
+ public:
     explicit MemData(size_t = 0);
     MemData(std::initializer_list<T>);
     MemData(T*, size_t);

@@ -8,7 +8,7 @@
 
 template <typename T>
 class Matrix : public MathVector<MathVector<T>> {
-public:
+ public:
     explicit Matrix(size_t rows = 1, size_t cols = 1);
     Matrix(std::initializer_list<std::initializer_list<T>> data);
 

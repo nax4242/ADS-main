@@ -7,7 +7,7 @@
 
 template <typename T>
 class TriangleMatrix : public Matrix<T> {
-public:
+ public:
     explicit TriangleMatrix(size_t n = 1);
     TriangleMatrix(std::initializer_list<std::initializer_list<T>> data);
     // NOLINTNEXTLINE(runtime/explicit)

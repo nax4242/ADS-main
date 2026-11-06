@@ -10,7 +10,7 @@ template <typename T>
 class MathVector : protected Vector<T> {
     size_t _start_index;
 
-public:
+ public:
     using Vector<T>::size;
     using Vector<T>::is_empty;
     using Vector<T>::is_full;
