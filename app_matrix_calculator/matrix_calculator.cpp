@@ -1,6 +1,9 @@
-#include <iostream>
-#include "../lib_matrix/triangle_matrix.h"
+// Copyright 2026 Danila Puzanov
+
 #include <windows.h>
+#include <iostream>
+#include <stdexcept>
+#include "../lib_matrix/triangle_matrix.h"
 
 using std::cin;
 using std::cout;
@@ -59,7 +62,9 @@ void input_triangle(M& target) {
     size_t n = read_size("Размер n: ");
     TriangleMatrix<double> t(n);
 
-    cout << "Введите полную матрицу " << n << "x" << n << " (под диагональю только нули, " << n * n << " элементов):\n";
+    cout << "Введите полную матрицу " << n << "x" << n
+        << " (под диагональю только нули, " << n * n
+        << " элементов):\n";
     if (!(cin >> t)) {
         throw std::invalid_argument("Ошибка ввода элементов");
     }
@@ -85,7 +90,7 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
-    M A, B; // тоесть указатели чтобы триангл норм работало
+    M A, B;
 
     while (true) {
         print_menu();
