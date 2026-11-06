@@ -1,6 +1,10 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "list.h"
-#include "parameters.h"
+#include <string>
+#include <utility>
+#include "../lib_list/list.h"
+#include "../tests/parameters.h"
 
 #ifdef LIST_TESTS
 

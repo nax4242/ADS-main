@@ -1,6 +1,9 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "set.h"
-#include "parameters.h"
+#include <utility>
+#include "../lib_set/set.h"
+#include "../tests/parameters.h"
 
 #ifdef SET_TESTS
 

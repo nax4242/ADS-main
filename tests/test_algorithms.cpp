@@ -1,20 +1,21 @@
-// Copyright 2024 Marina Usova
+// Copyright 2026 Danila Puzanov
 
 #include <gtest/gtest.h>
+#include <string>
 #include "../lib_algorithms/algorithms.h"
-#include "parameters.h"
+#include "../tests/parameters.h"
 
 #define EPSILON 0.000001
 
 #ifdef ALGORITHM_TESTS
 
 TEST(TestEasyExampleLib, can_div) {
-  // Arrange
-  int x = 10;
-  int y = 2;
+    // Arrange
+    int x = 10;
+    int y = 2;
 
-  // Act & Assert
-  ASSERT_NO_THROW(division(x, y));
+    // Act & Assert
+    ASSERT_NO_THROW(division(x, y));
 }
 
 TEST(TestEasyExampleLib, can_div_correctly) {
@@ -44,12 +45,12 @@ TEST(TestEasyExampleLib, can_div_correctly_with_remainder) {
 }
 
 TEST(TestEasyExampleLib, throw_when_try_div_by_zero) {
-  // Arrange
-  int x = 10;
-  int y = 0;
+    // Arrange
+    int x = 10;
+    int y = 0;
 
-  // Act & Assert
-  ASSERT_ANY_THROW(division(x, y));
+    // Act & Assert
+    ASSERT_ANY_THROW(division(x, y));
 }
 
 TEST(TestCheckBrackets, new_algorithm_test1) {
@@ -184,7 +185,7 @@ TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test1) {
 TEST(TestSieveOfEratosthenes, sieve_of_eratosthenes_test2) {
     Set expected_result(20);
     expected_result = -expected_result;
-    
+
     expected_result.erase(1);
     expected_result.erase(4);
     expected_result.erase(6);

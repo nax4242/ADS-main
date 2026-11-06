@@ -1,6 +1,9 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "bit_field.h"
-#include "parameters.h"
+#include <utility>
+#include "../lib_set/bit_field.h"
+#include "../tests/parameters.h"
 
 #ifdef BITFIELD_TESTS
 
@@ -229,7 +232,7 @@ TEST(BitFieldTest, can_inequality_with_different_sizes) {
     bf2.set_bit(3);
 
     EXPECT_TRUE(bf1 != bf2);
-}    
+}
 
 TEST(BitFieldTest, can_output_operator) {
     BitField bf(10);
@@ -271,7 +274,7 @@ TEST(BitFieldTest, can_input_operator_error_alpha) {
 
     EXPECT_EQ(10, bf.get_size());
 
-    for(size_t i = 0; i < bf.get_size(); i++) {
+    for (size_t i = 0; i < bf.get_size(); i++) {
         if (i == 3 || i == 5) {
             EXPECT_TRUE(bf.get_bit(i));
         }
@@ -302,6 +305,5 @@ TEST(BitFieldTest, can_input_operator_error_space) {
         }
     }
 }
-
 
 #endif

@@ -1,6 +1,8 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "queue_on_mass.h"
-#include "parameters.h"
+#include "../lib_queue_on_mass/queue_on_mass.h"
+#include "../tests/parameters.h"
 
 #ifdef QUEUE_TESTS
 

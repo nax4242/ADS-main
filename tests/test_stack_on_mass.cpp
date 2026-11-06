@@ -1,13 +1,15 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "stack_on_mass.h"
-#include "parameters.h"
+#include "../lib_stack_on_mass/stack_on_mass.h"
+#include "../tests/parameters.h"
 
 
 #ifdef STACK_TESTS
 
 TEST(ClassStackOnMass, can_create_with_default_constructor) {
     TStackOnMass<int> stack;
-    
+
     EXPECT_THROW(stack.top(), std::logic_error);
     EXPECT_EQ(stack.size(), 1);
     EXPECT_EQ(stack.is_empty(), true);

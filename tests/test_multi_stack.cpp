@@ -1,6 +1,11 @@
+// Copyright 2026 Danila Puzanov
+
 #include <gtest/gtest.h>
-#include "multi_stack.h"
-#include "parameters.h"
+#include <string>
+#include <utility>
+#include <vector>
+#include "../lib_multi_stack/multi_stack.h"
+#include "../tests/parameters.h"
 
 #ifdef MULTI_STACK_TESTS
 
@@ -368,7 +373,7 @@ TEST(MultiStackRepack, WorksWithStrings) {
     s.push("second long string to avoid small buffer", 0);
     s.push("third long string to avoid small buffer", 1);
 
-    s.push("fourth long string to avoid small buffer", 0); // repack
+    s.push("fourth long string to avoid small buffer", 0);  // repack
 
     EXPECT_EQ(s.pop(0), "fourth long string to avoid small buffer");
     EXPECT_EQ(s.pop(0), "second long string to avoid small buffer");
