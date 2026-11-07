@@ -26,7 +26,7 @@ class TriangleMatrix : public Matrix<T> {
 
 template <typename T>
 TriangleMatrix<T>::TriangleMatrix(size_t n)
-    : Matrix<T>(n, n) {  // утечка памяти
+    : Matrix<T>(MathVector<MathVector<T>>(n)) {
     for (size_t i = 0; i < n; i++) {
         (*this)[i] = MathVector<T>(n - i, nullptr, i);
     }

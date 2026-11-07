@@ -17,7 +17,7 @@ class Matrix : public MathVector<MathVector<T>> {
 
     // NOLINTNEXTLINE(runtime/explicit)
     Matrix(const MathVector<MathVector<T>>& vec);
-    ~Matrix() = default;
+    virtual ~Matrix() = default;
 
     inline size_t rows() const noexcept;
     inline size_t cols() const noexcept;
