@@ -5,16 +5,11 @@
 #include <stdexcept>
 #include "../lib_matrix/triangle_matrix.h"
 
-using std::cin;
-using std::cout;
-
-using M = Matrix<double>;
-
 size_t read_size(const char* prompt) {
     size_t v;
 
-    cout << prompt;
-    if (!(cin >> v) || v <= 0) {
+    std::cout << prompt;
+    if (!(std::cin >> v) || v <= 0) {
         throw std::invalid_argument("Нужно положительное целое число");
     }
 
@@ -24,20 +19,21 @@ size_t read_size(const char* prompt) {
 double read_number(const char* prompt) {
     double v;
 
-    cout << prompt;
-    if (!(cin >> v)) {
+    std::cout << prompt;
+    if (!(std::cin >> v)) {
         throw std::invalid_argument("Нужно число");
     }
 
     return v;
 }
 
-M& select(M& a, M& b, const char* prompt) {
-    cout << prompt << " (A/B): ";
+Matrix<double>*& select(Matrix<double>*& a, Matrix<double>*& b,
+    const char* prompt) {
+    std::cout << prompt << " (A/B): ";
 
     char c;
 
-    cin >> c;
+    std::cin >> c;
 
     if (c == 'A' || c == 'a') return a;
     if (c == 'B' || c == 'b') return b;
@@ -45,35 +41,49 @@ M& select(M& a, M& b, const char* prompt) {
     throw std::invalid_argument("Нужно ввести A или B");
 }
 
-void input_full(M& target) {
+void input_full(Matrix<double>*& target) {
     size_t r = read_size("Строк: ");
     size_t c = read_size("Столбцов: ");
-    M m(r, c);
+    Matrix<double>* m = new Matrix<double>(r, c);
 
-    cout << "Введите " << r * c << " элементов:\n";
-    if (!(cin >> m)) {
-        throw std::invalid_argument("Ошибка ввода элементов");
+    std::cout << "Введите " << r * c << " элементов:\n";
+
+    try {
+        if (!(std::cin >> *m)) {
+            throw std::invalid_argument("Ошибка ввода элементов");
+        }
+    } catch (...) {
+        delete m;
+        throw;
     }
 
+    delete target;
     target = m;
 }
 
-void input_triangle(M& target) {
+void input_triangle(Matrix<double>*& target) {
     size_t n = read_size("Размер n: ");
-    TriangleMatrix<double> t(n);
+    TriangleMatrix<double>* t = new TriangleMatrix<double>(n);
 
-    cout << "Введите полную матрицу " << n << "x" << n
+    std::cout << "Введите полную матрицу " << n << "x" << n
         << " (под диагональю только нули, " << n * n
         << " элементов):\n";
-    if (!(cin >> t)) {
-        throw std::invalid_argument("Ошибка ввода элементов");
+
+    try {
+        if (!(std::cin >> *t)) {
+            throw std::invalid_argument("Ошибка ввода элементов");
+        }
+    } catch (...) {
+        delete t;
+        throw;
     }
 
+    delete target;
     target = t;
 }
 
 void print_menu() {
-    cout << "\n=== Матричный калькулятор ===\n"
+    std::cout << "\n=== Матричный калькулятор ===\n"
         << "1. Ввести матрицу (обычную)\n"
         << "2. Ввести верхнетреугольную матрицу\n"
         << "3. Показать A и B\n"
@@ -90,15 +100,16 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
-    M A, B;
+    Matrix<double>* A = new Matrix<double>();
+    Matrix<double>* B = new Matrix<double>();
 
     while (true) {
         print_menu();
 
         int choice;
-        if (!(cin >> choice)) {
-            if (cin.eof()) break;
-            cout << "Нужно ввести номер пункта.\n";
+        if (!(std::cin >> choice)) {
+            if (std::cin.eof()) break;
+            std::cout << "Нужно ввести номер пункта.\n";
             continue;
         }
         if (choice == 0) break;
@@ -112,42 +123,45 @@ int main() {
                 input_triangle(select(A, B, "Куда записать"));
                 break;
             case 3:
-                cout << "A =\n" << A << "\nB =\n" << B << '\n';
+                std::cout << "A =\n" << *A << "\nB =\n" << *B << '\n';
                 break;
             case 4: {
-                M r = A + B;
-                cout << "A + B =\n" << r << '\n';
+                Matrix<double> r = *A + *B;
+                std::cout << "A + B =\n" << r << '\n';
                 break;
             }
             case 5: {
-                M r = A - B;
-                cout << "A - B =\n" << r << '\n';
+                Matrix<double> r = *A - *B;
+                std::cout << "A - B =\n" << r << '\n';
                 break;
             }
             case 6: {
-                M r = A * B;
-                cout << "A * B =\n" << r << '\n';
+                Matrix<double> r = *A * *B;
+                std::cout << "A * B =\n" << r << '\n';
                 break;
             }
             case 7: {
-                M& m = select(A, B, "Какую матрицу");
+                Matrix<double>*& m = select(A, B, "Какую матрицу");
                 double k = read_number("Число: ");
-                M r = m * k;
-                cout << "Результат =\n" << r << '\n';
+                Matrix<double> r = *m * k;
+                std::cout << "Результат =\n" << r << '\n';
                 break;
             }
             case 8: {
-                M& m = select(A, B, "Какую матрицу");
-                cout << "Результат =\n" << m.transpose() << '\n';
+                Matrix<double>*& m = select(A, B, "Какую матрицу");
+                std::cout << "Результат =\n" << m->transpose() << '\n';
                 break;
             }
             default:
-                cout << "Нет такого пункта.\n";
+                std::cout << "Нет такого пункта.\n";
             }
         } catch (const std::exception& e) {
-            cout << "Ошибка: " << e.what() << '\n';
+            std::cout << "Ошибка: " << e.what() << '\n';
         }
     }
+
+    delete A;
+    delete B;
 
     return 0;
 }
