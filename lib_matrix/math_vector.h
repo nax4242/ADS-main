@@ -175,15 +175,32 @@ MathVector<T> MathVector<T>::operator+(const MathVector<T>& other) const {
 
 template <typename T>
 MathVector<T>& MathVector<T>::operator+=(const MathVector<T>& other) {
-    if (size() != other.size() || _start_index != other._start_index) {
+    const size_t end = _start_index + size();
+
+    if (end != other._start_index + other.size()) {
         throw std::invalid_argument(
-            "Vectors must be of the same size for addition.");
+            "Vectors must be of the same width for addition.");
     }
 
-    for (size_t i = _start_index; i < _start_index + size(); i++) {
-        (*this)[i] += other[i];
+    if (other._start_index >= _start_index) {
+        for (size_t i = other._start_index; i < end; i++) {
+            (*this)[i] += other[i];
+        }
+
+        return *this;
     }
 
+    MathVector<T> tmp(end - other._start_index, nullptr, other._start_index);
+
+    for (size_t i = _start_index; i < end; i++) {
+        tmp[i] = (*this)[i];
+    }
+
+    for (size_t i = other._start_index; i < end; i++) {
+        tmp[i] += other[i];
+    }
+
+    *this = std::move(tmp);
     return *this;
 }
 
@@ -195,15 +212,32 @@ MathVector<T> MathVector<T>::operator-(const MathVector<T>& other) const {
 
 template <typename T>
 MathVector<T>& MathVector<T>::operator-=(const MathVector<T>& other) {
-    if (this->size() != other.size() || _start_index != other._start_index) {
+    const size_t end = _start_index + size();
+
+    if (end != other._start_index + other.size()) {
         throw std::invalid_argument(
-            "Vectors must be of the same size for subtraction.");
+            "Vectors must be of the same width for subtraction.");
     }
 
-    for (size_t i = _start_index; i < _start_index + size(); i++) {
-        (*this)[i] -= other[i];
+    if (other._start_index >= _start_index) {
+        for (size_t i = other._start_index; i < end; i++) {
+            (*this)[i] -= other[i];
+        }
+
+        return *this;
     }
 
+    MathVector<T> tmp(end - other._start_index, nullptr, other._start_index);
+
+    for (size_t i = _start_index; i < end; i++) {
+        tmp[i] = (*this)[i];
+    }
+
+    for (size_t i = other._start_index; i < end; i++) {
+        tmp[i] -= other[i];
+    }
+
+    *this = std::move(tmp);
     return *this;
 }
 
