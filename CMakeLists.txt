@@ -21,23 +21,25 @@ include(cmake/function.cmake)         # подхватываем функции,
                                       # для простоты мы объединили наборы команд для создания статической библиотеки
 								      # и для создания исполняемого проекта в отдельные функции
 
-add_subdirectory(lib_algorithms)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
+add_subdirectory(lib_algorithms)         # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
 
-add_subdirectory(lib_stack_on_mass)   # подключаем стек на массиве
+add_subdirectory(lib_stack_on_mass)      # подключаем стек на массиве
 
-add_subdirectory(lib_queue_on_mass)   # подключаем очередь на массиве
+add_subdirectory(lib_queue_on_mass)      # подключаем очередь на массиве
 
-add_subdirectory(lib_set)             # подключаем множество
+add_subdirectory(lib_set)                # подключаем множество
 
-add_subdirectory(lib_multi_stack)     # подключаем мульти стек
+add_subdirectory(lib_multi_stack)        # подключаем мульти стек
 
-add_subdirectory(lib_list)            # подключаем односвязный список
+add_subdirectory(lib_list)               # подключаем односвязный список
 
-add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
+add_subdirectory(lib_matrix)             # подключаем матрицу
 
-option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
+add_subdirectory(app_matrix_calculator)  # подключаем матричный калькулятор
 
-if(BTEST)                             # если тесты подключены         
+option(BTEST "build test?" ON)           # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
+
+if(BTEST)                                # если тесты подключены         
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     add_subdirectory("third_party/gtest" EXCLUDE_FROM_ALL)
     enable_testing()
