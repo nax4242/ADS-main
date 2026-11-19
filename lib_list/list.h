@@ -14,6 +14,94 @@ class List {
         Node(Node&&) = default;
 
         ~Node() = default;
+
+
+    };
+
+    template <typename Type>
+    class Iterator {
+        Type* _cur;
+
+    public:
+        Iterator(Type* cur = nullptr) {
+            _cur = cur;
+        }
+        Iterator(const Iterator&) = default;
+
+        auto& operator*() const {
+            if (_cur == nullptr) {
+                throw std::out_of_range("Null iterator");
+            }
+
+            return _cur->_data;
+        }
+
+        auto* operator->() const {
+            if (_cur == nullptr) {
+                throw std::out_of_range("Dereferencing null iterator");
+            }
+
+            return &(_cur->_data);
+        }
+
+        Iterator& operator=(const Iterator& other) noexcept {
+            if (this == &other) {
+                return *this;
+            }
+
+            this->_cur = other._cur;
+
+            return *this;
+        }
+
+        Iterator& operator++() noexcept {
+            if (_cur != nullptr) {
+                _cur = _cur->_next;
+            }
+            
+            return *this;
+        }
+
+        Iterator operator++(int) noexcept {
+            Iterator temp = *this;
+
+            ++(*this);
+
+            return temp;
+        }
+
+        Iterator& operator+=(int val) {
+            if (val < 0) {
+                throw std::invalid_argument("+= argument can't be negative");
+            }
+
+            while (val > 0) {
+                if (_cur == nullptr) {
+                    throw std::out_of_range("Iterator out of range");
+                }
+
+                _cur = _cur->_next;
+                --val;
+            }
+
+            return *this;
+        }
+
+        Iterator operator+(int val) const {
+            Iterator temp = *this;
+
+            temp += val;
+
+            return temp;
+        }
+
+        bool operator==(const Iterator& other) const noexcept {
+            return this->_cur == other._cur;
+        }
+
+        bool operator!=(const Iterator& other) const noexcept {
+            return !(*this == other);
+        }
     };
 
     Node* _head;
@@ -21,6 +109,25 @@ class List {
     size_t _size;
 
  public:
+    typedef Iterator<Node> iterator;
+    typedef Iterator<const Node> const_iterator;
+
+    iterator begin() noexcept {
+        return iterator(_head);
+    }
+
+    iterator end() noexcept {
+        return iterator(nullptr);
+    }
+
+    const_iterator begin() const noexcept {
+        return const_iterator(_head);
+    }
+
+    const_iterator end() const noexcept {
+        return const_iterator(nullptr);
+    }
+
     List();
     List(const List& other);
     List(List&& other) noexcept;
@@ -55,7 +162,6 @@ List<T>::Node::Node(const T& data, Node* next) {
     _data = data;
     _next = next;
 }
-
 
 template <typename T>
 List<T>::List() {
