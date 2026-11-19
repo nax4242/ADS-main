@@ -56,7 +56,7 @@ class List {
             if (_cur != nullptr) {
                 _cur = _cur->_next;
             }
-            
+
             return *this;
         }
 
