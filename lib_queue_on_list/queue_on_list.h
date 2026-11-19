@@ -9,7 +9,7 @@ class TQueueOnList {
     List<T> _data;
     size_t _size;
 
-public:
+ public:
     explicit TQueueOnList(size_t size = 1);
     TQueueOnList(const TQueueOnList& other);
 
@@ -29,7 +29,8 @@ template <typename T>
 TQueueOnList<T>::TQueueOnList(size_t size) : _data(), _size(size) {}
 
 template <typename T>
-TQueueOnList<T>::TQueueOnList(const TQueueOnList& other) : _data(other._data), _size(other._size) {}
+TQueueOnList<T>::TQueueOnList(const TQueueOnList& other) : _data(other._data),
+                                                           _size(other._size) {}
 
 
 template <typename T>

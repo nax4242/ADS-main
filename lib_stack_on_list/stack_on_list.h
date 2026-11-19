@@ -9,7 +9,7 @@ class TStackOnList {
     List<T> _data;
     size_t _size;
 
-public:
+ public:
     explicit TStackOnList(size_t size = 1);
     TStackOnList(const TStackOnList& other);
 
@@ -29,7 +29,8 @@ template <typename T>
 TStackOnList<T>::TStackOnList(size_t size) : _data(), _size(size) {}
 
 template <typename T>
-TStackOnList<T>::TStackOnList(const TStackOnList& other) : _data(other._data), _size(other._size) {}
+TStackOnList<T>::TStackOnList(const TStackOnList& other) : _data(other._data),
+                                                           _size(other._size) {}
 
 
 template <typename T>
