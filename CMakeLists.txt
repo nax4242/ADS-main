@@ -27,11 +27,15 @@ add_subdirectory(lib_stack_on_mass)      # подключаем стек на м
 
 add_subdirectory(lib_queue_on_mass)      # подключаем очередь на массиве
 
+add_subdirectory(lib_stack_on_list)      # подключаем стек на листе
+
+add_subdirectory(lib_queue_on_list)      # подключаем очередь на листе
+
 add_subdirectory(lib_set)                # подключаем множество
 
 add_subdirectory(lib_multi_stack)        # подключаем мульти стек
 
-add_subdirectory(lib_list)               # подключаем односвязный список
+add_subdirectory(lib_singly_linked_list) # подключаем односвязный список
 
 add_subdirectory(lib_matrix)             # подключаем матрицу
 
