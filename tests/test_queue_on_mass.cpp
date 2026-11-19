@@ -4,7 +4,7 @@
 #include "../lib_queue_on_mass/queue_on_mass.h"
 #include "../tests/parameters.h"
 
-#ifdef QUEUE_TESTS
+#ifdef QUEUE_ON_MASS_TESTS
 
 TEST(ClassQueueOnMass, can_create_with_default_constructor) {
     TQueueOnMass<int> queue;

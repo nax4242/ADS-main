@@ -4,8 +4,7 @@
 #include "../lib_stack_on_mass/stack_on_mass.h"
 #include "../tests/parameters.h"
 
-
-#ifdef STACK_TESTS
+#ifdef STACK_ON_MASS_TESTS
 
 TEST(ClassStackOnMass, can_create_with_default_constructor) {
     TStackOnMass<int> stack;
