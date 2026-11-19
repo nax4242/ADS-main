@@ -14,16 +14,14 @@ class List {
         Node(Node&&) = default;
 
         ~Node() = default;
-
-
     };
 
     template <typename Type>
     class Iterator {
         Type* _cur;
 
-    public:
-        Iterator(Type* cur = nullptr) {
+     public:
+        explicit Iterator(Type* cur = nullptr) {
             _cur = cur;
         }
         Iterator(const Iterator&) = default;
