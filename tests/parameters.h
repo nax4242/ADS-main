@@ -30,3 +30,5 @@
 
 
 #define LIST_TESTS
+
+#define LIST_ITERATOR_TESTS
