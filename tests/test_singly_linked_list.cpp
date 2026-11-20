@@ -3,28 +3,28 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <utility>
-#include "../lib_list/list.h"
+#include "../lib_singly_linked_list/singly_linked_list.h"
 #include "../tests/parameters.h"
 
 #ifdef SINGLY_LINKED_LIST_TESTS
 
-TEST(ClassList, DefaultConstructorCreatesEmptyList) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, DefaultConstructorCreatesEmptyList) {
+    SinglyLinkedList<int> l;
 
     EXPECT_TRUE(l.is_empty());
     EXPECT_EQ(l.size(), 0u);
     EXPECT_EQ(l.find(1), nullptr);
 }
 
-TEST(ClassList, PopFromEmptyThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PopFromEmptyThrows) {
+    SinglyLinkedList<int> l;
 
     EXPECT_THROW(l.pop_front(), std::underflow_error);
     EXPECT_THROW(l.pop_back(), std::underflow_error);
 }
 
-TEST(ClassList, PushBackKeepsOrder) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PushBackKeepsOrder) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -37,8 +37,8 @@ TEST(ClassList, PushBackKeepsOrder) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, PushFrontReversesOrder) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PushFrontReversesOrder) {
+    SinglyLinkedList<int> l;
 
     l.push_front(1);
     l.push_front(2);
@@ -50,8 +50,8 @@ TEST(ClassList, PushFrontReversesOrder) {
     EXPECT_EQ(l.pop_front(), 1);
 }
 
-TEST(ClassList, PushFrontOnEmptyThenPushBack) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PushFrontOnEmptyThenPushBack) {
+    SinglyLinkedList<int> l;
 
     l.push_front(1);
     l.push_back(2);
@@ -60,8 +60,8 @@ TEST(ClassList, PushFrontOnEmptyThenPushBack) {
     EXPECT_EQ(l.pop_front(), 2);
 }
 
-TEST(ClassList, PopFrontReturnsElementsAndShrinks) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PopFrontReturnsElementsAndShrinks) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -72,8 +72,8 @@ TEST(ClassList, PopFrontReturnsElementsAndShrinks) {
     EXPECT_TRUE(l.is_empty());
 }
 
-TEST(ClassList, PopBackReturnsElementsAndShrinks) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PopBackReturnsElementsAndShrinks) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -86,8 +86,8 @@ TEST(ClassList, PopBackReturnsElementsAndShrinks) {
     EXPECT_TRUE(l.is_empty());
 }
 
-TEST(ClassList, PopBackUpdatesTail) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, PopBackUpdatesTail) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -100,8 +100,8 @@ TEST(ClassList, PopBackUpdatesTail) {
     EXPECT_EQ(l.pop_front(), 9);
 }
 
-TEST(ClassList, ReusableAfterPopFrontMakesItEmpty) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, ReusableAfterPopFrontMakesItEmpty) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.pop_front();
@@ -112,8 +112,8 @@ TEST(ClassList, ReusableAfterPopFrontMakesItEmpty) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, ReusableAfterPopBackMakesItEmpty) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, ReusableAfterPopBackMakesItEmpty) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.pop_back();
@@ -124,8 +124,8 @@ TEST(ClassList, ReusableAfterPopBackMakesItEmpty) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, InsertByIndexIntoEmpty) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertByIndexIntoEmpty) {
+    SinglyLinkedList<int> l;
 
     auto node = l.insert(5, size_t{ 0 });
 
@@ -134,8 +134,8 @@ TEST(ClassList, InsertByIndexIntoEmpty) {
     EXPECT_EQ(l.size(), 1u);
 }
 
-TEST(ClassList, InsertByIndexAtBeginning) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertByIndexAtBeginning) {
+    SinglyLinkedList<int> l;
 
     l.push_back(2);
     l.push_back(3);
@@ -147,8 +147,8 @@ TEST(ClassList, InsertByIndexAtBeginning) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, InsertByIndexInMiddle) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertByIndexInMiddle) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(3);
@@ -161,8 +161,8 @@ TEST(ClassList, InsertByIndexInMiddle) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, InsertByIndexAtEndUpdatesTail) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertByIndexAtEndUpdatesTail) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -178,8 +178,8 @@ TEST(ClassList, InsertByIndexAtEndUpdatesTail) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, InsertByIndexOutOfRangeThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertByIndexOutOfRangeThrows) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -188,8 +188,8 @@ TEST(ClassList, InsertByIndexOutOfRangeThrows) {
     EXPECT_EQ(l.size(), 2u);
 }
 
-TEST(ClassList, InsertBeforeHeadNode) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertBeforeHeadNode) {
+    SinglyLinkedList<int> l;
 
     l.push_back(2);
     l.push_back(3);
@@ -202,8 +202,8 @@ TEST(ClassList, InsertBeforeHeadNode) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, InsertBeforeMiddleNode) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertBeforeMiddleNode) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(3);
@@ -217,8 +217,8 @@ TEST(ClassList, InsertBeforeMiddleNode) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, InsertBeforeTailNodeKeepsTailValid) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertBeforeTailNodeKeepsTailValid) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(3);
@@ -231,8 +231,8 @@ TEST(ClassList, InsertBeforeTailNodeKeepsTailValid) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, InsertBeforeNullptrThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, InsertBeforeNullptrThrows) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
 
@@ -240,13 +240,13 @@ TEST(ClassList, InsertBeforeNullptrThrows) {
     EXPECT_EQ(l.size(), 1u);
 }
 
-TEST(ClassList, InsertBeforeForeignNodeThrows) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, InsertBeforeForeignNodeThrows) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int> b;
+    SinglyLinkedList<int> b;
 
     b.push_back(7);
     b.push_back(8);
@@ -256,8 +256,8 @@ TEST(ClassList, InsertBeforeForeignNodeThrows) {
     EXPECT_EQ(b.size(), 2u);
 }
 
-TEST(ClassList, EraseByIndexFirst) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexFirst) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -269,8 +269,8 @@ TEST(ClassList, EraseByIndexFirst) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, EraseByIndexMiddle) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexMiddle) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -284,8 +284,8 @@ TEST(ClassList, EraseByIndexMiddle) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, EraseByIndexSecondOfThree) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexSecondOfThree) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -296,8 +296,8 @@ TEST(ClassList, EraseByIndexSecondOfThree) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, EraseByIndexLastUpdatesTail) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexLastUpdatesTail) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -312,8 +312,8 @@ TEST(ClassList, EraseByIndexLastUpdatesTail) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, EraseByIndexOnlyElement) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexOnlyElement) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
 
@@ -321,8 +321,8 @@ TEST(ClassList, EraseByIndexOnlyElement) {
     EXPECT_TRUE(l.is_empty());
 }
 
-TEST(ClassList, EraseByIndexOutOfRangeThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexOutOfRangeThrows) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -332,14 +332,14 @@ TEST(ClassList, EraseByIndexOutOfRangeThrows) {
     EXPECT_EQ(l.size(), 2u);
 }
 
-TEST(ClassList, EraseByIndexFromEmptyThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseByIndexFromEmptyThrows) {
+    SinglyLinkedList<int> l;
 
     EXPECT_THROW(l.erase(size_t{ 0 }), std::out_of_range);
 }
 
-TEST(ClassList, EraseHeadNode) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseHeadNode) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -350,8 +350,8 @@ TEST(ClassList, EraseHeadNode) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, EraseTailNodeUpdatesTail) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseTailNodeUpdatesTail) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -366,8 +366,8 @@ TEST(ClassList, EraseTailNodeUpdatesTail) {
     EXPECT_EQ(l.pop_front(), 4);
 }
 
-TEST(ClassList, EraseMiddleNode) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseMiddleNode) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -379,8 +379,8 @@ TEST(ClassList, EraseMiddleNode) {
     EXPECT_EQ(l.pop_front(), 3);
 }
 
-TEST(ClassList, EraseNullptrNodeThrows) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, EraseNullptrNodeThrows) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
 
@@ -388,14 +388,14 @@ TEST(ClassList, EraseNullptrNodeThrows) {
     EXPECT_EQ(l.size(), 1u);
 }
 
-TEST(ClassList, EraseForeignNodeThrows) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, EraseForeignNodeThrows) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
 
-    List<int> b;
+    SinglyLinkedList<int> b;
 
     b.push_back(7);
     b.push_back(8);
@@ -406,8 +406,8 @@ TEST(ClassList, EraseForeignNodeThrows) {
     EXPECT_EQ(b.size(), 3u);
 }
 
-TEST(ClassList, FindExistingElement) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, FindExistingElement) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -418,8 +418,8 @@ TEST(ClassList, FindExistingElement) {
     EXPECT_EQ(node->_data, 2);
 }
 
-TEST(ClassList, FindMissingElementReturnsNullptr) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, FindMissingElementReturnsNullptr) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
@@ -427,8 +427,8 @@ TEST(ClassList, FindMissingElementReturnsNullptr) {
     EXPECT_EQ(l.find(42), nullptr);
 }
 
-TEST(ClassList, FindReturnsFirstOfDuplicates) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, FindReturnsFirstOfDuplicates) {
+    SinglyLinkedList<int> l;
 
     l.push_back(5);
     l.push_back(1);
@@ -439,24 +439,24 @@ TEST(ClassList, FindReturnsFirstOfDuplicates) {
     EXPECT_EQ(l.pop_front(), 5);
 }
 
-TEST(ClassList, FindWorksOnConstList) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, FindWorksOnConstList) {
+    SinglyLinkedList<int> l;
 
     l.push_back(1);
     l.push_back(2);
-    const List<int>& cl = l;
+    const SinglyLinkedList<int>& cl = l;
 
     EXPECT_NE(cl.find(2), nullptr);
 }
 
-TEST(ClassList, CopyConstructorIsDeep) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, CopyConstructorIsDeep) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
 
-    List<int> b(a);
+    SinglyLinkedList<int> b(a);
 
     EXPECT_EQ(b.size(), 3u);
 
@@ -471,9 +471,9 @@ TEST(ClassList, CopyConstructorIsDeep) {
     EXPECT_EQ(a.pop_front(), 99);
 }
 
-TEST(ClassList, CopyConstructorOfEmptyList) {
-    List<int> a;
-    List<int> b(a);
+TEST(ClassSinglyLinkedList, CopyConstructorOfEmptyList) {
+    SinglyLinkedList<int> a;
+    SinglyLinkedList<int> b(a);
 
     EXPECT_TRUE(b.is_empty());
 
@@ -482,13 +482,13 @@ TEST(ClassList, CopyConstructorOfEmptyList) {
     EXPECT_EQ(b.pop_front(), 1);
 }
 
-TEST(ClassList, CopyHasWorkingTail) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, CopyHasWorkingTail) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int> b(a);
+    SinglyLinkedList<int> b(a);
 
     b.push_back(3);
 
@@ -498,14 +498,14 @@ TEST(ClassList, CopyHasWorkingTail) {
     EXPECT_EQ(b.pop_back(), 2);
 }
 
-TEST(ClassList, CopyAssignmentReplacesContent) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, CopyAssignmentReplacesContent) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
 
-    List<int> b;
+    SinglyLinkedList<int> b;
 
     b.push_back(7);
     b.push_back(8);
@@ -523,10 +523,10 @@ TEST(ClassList, CopyAssignmentReplacesContent) {
     EXPECT_EQ(b.pop_front(), 4);
 }
 
-TEST(ClassList, CopyAssignmentFromEmpty) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, CopyAssignmentFromEmpty) {
+    SinglyLinkedList<int> a;
 
-    List<int> b;
+    SinglyLinkedList<int> b;
     b.push_back(1);
     b.push_back(2);
 
@@ -539,13 +539,13 @@ TEST(ClassList, CopyAssignmentFromEmpty) {
     EXPECT_EQ(b.pop_front(), 5);
 }
 
-TEST(ClassList, CopyAssignmentToEmpty) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, CopyAssignmentToEmpty) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int> b;
+    SinglyLinkedList<int> b;
 
     b = a;
 
@@ -553,13 +553,13 @@ TEST(ClassList, CopyAssignmentToEmpty) {
     EXPECT_EQ(b.pop_front(), 2);
 }
 
-TEST(ClassList, SelfCopyAssignmentIsSafe) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, SelfCopyAssignmentIsSafe) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int>& ref = a;
+    SinglyLinkedList<int>& ref = a;
 
     a = ref;
 
@@ -568,14 +568,14 @@ TEST(ClassList, SelfCopyAssignmentIsSafe) {
     EXPECT_EQ(a.pop_front(), 2);
 }
 
-TEST(ClassList, MoveConstructorStealsContent) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, MoveConstructorStealsContent) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
 
-    List<int> b(std::move(a));
+    SinglyLinkedList<int> b(std::move(a));
 
     EXPECT_TRUE(a.is_empty());
     EXPECT_EQ(a.size(), 0u);
@@ -585,13 +585,13 @@ TEST(ClassList, MoveConstructorStealsContent) {
     EXPECT_EQ(b.pop_front(), 3);
 }
 
-TEST(ClassList, MovedFromListIsUsable) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, MovedFromListIsUsable) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int> b(std::move(a));
+    SinglyLinkedList<int> b(std::move(a));
 
     a.push_back(10);
     a.push_front(9);
@@ -602,14 +602,14 @@ TEST(ClassList, MovedFromListIsUsable) {
     EXPECT_EQ(b.pop_front(), 2);
 }
 
-TEST(ClassList, MoveAssignmentStealsContent) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, MoveAssignmentStealsContent) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
     a.push_back(3);
 
-    List<int> b;
+    SinglyLinkedList<int> b;
 
     b.push_back(7);
     b = std::move(a);
@@ -625,13 +625,13 @@ TEST(ClassList, MoveAssignmentStealsContent) {
     EXPECT_EQ(b.pop_front(), 4);
 }
 
-TEST(ClassList, SelfMoveAssignmentIsSafe) {
-    List<int> a;
+TEST(ClassSinglyLinkedList, SelfMoveAssignmentIsSafe) {
+    SinglyLinkedList<int> a;
 
     a.push_back(1);
     a.push_back(2);
 
-    List<int>& ref = a;
+    SinglyLinkedList<int>& ref = a;
 
     a = std::move(ref);
 
@@ -640,8 +640,8 @@ TEST(ClassList, SelfMoveAssignmentIsSafe) {
     EXPECT_EQ(a.pop_front(), 2);
 }
 
-TEST(ClassList, WorksWithStrings) {
-    List<std::string> l;
+TEST(ClassSinglyLinkedList, WorksWithStrings) {
+    SinglyLinkedList<std::string> l;
 
     l.push_back("b");
     l.push_front("a");
@@ -654,8 +654,8 @@ TEST(ClassList, WorksWithStrings) {
     EXPECT_EQ(l.pop_front(), "c");
 }
 
-TEST(ClassList, ManyElements) {
-    List<int> l;
+TEST(ClassSinglyLinkedList, ManyElements) {
+    SinglyLinkedList<int> l;
 
     for (int i = 0; i < 10000; ++i) l.push_back(i);
 

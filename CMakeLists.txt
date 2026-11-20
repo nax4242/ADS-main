@@ -31,7 +31,7 @@ add_subdirectory(lib_set)                # подключаем множеств
 
 add_subdirectory(lib_multi_stack)        # подключаем мульти стек
 
-add_subdirectory(lib_list)               # подключаем односвязный список
+add_subdirectory(lib_singly_linked_list) # подключаем односвязный список
 
 add_subdirectory(lib_doubly_linked_list) # подключаем двусвязный список
 
