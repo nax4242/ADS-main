@@ -33,6 +33,8 @@ add_subdirectory(lib_multi_stack)        # подключаем мульти с�
 
 add_subdirectory(lib_list)               # подключаем односвязный список
 
+add_subdirectory(lib_doubly_linked_list) # подключаем двусвязный список
+
 add_subdirectory(lib_matrix)             # подключаем матрицу
 
 add_subdirectory(app_matrix_calculator)  # подключаем матричный калькулятор
