@@ -6,7 +6,7 @@
 #include "../lib_list/list.h"
 #include "../tests/parameters.h"
 
-#ifdef LIST_TESTS
+#ifdef SINGLY_LINKED_LIST_TESTS
 
 TEST(ClassList, DefaultConstructorCreatesEmptyList) {
     List<int> l;

@@ -6,7 +6,7 @@
 #include "../lib_list/list.h"
 #include "../tests/parameters.h"
 
-#ifdef LIST_ITERATOR_TESTS
+#ifdef SINGLY_LINKED_LIST_ITERATOR_TESTS
 
 TEST(IteratorLoopTest, standart_for_cycle) {
     List<int> list;
