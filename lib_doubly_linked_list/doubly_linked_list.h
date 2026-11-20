@@ -12,7 +12,8 @@ class DoublyLinkedList {
         Node* _next;
         Node* _prev;
 
-        explicit Node(const T& data, Node* next = nullptr, Node* prev = nullptr);
+        explicit Node
+        (const T& data, Node* next = nullptr, Node* prev = nullptr);
         Node(const Node&) = default;
         Node(Node&&) = default;
 
@@ -25,8 +26,8 @@ class DoublyLinkedList {
 
  public:
      DoublyLinkedList();
-     DoublyLinkedList(const List& other);
-     DoublyLinkedList(List&& other) noexcept;
+     DoublyLinkedList(const DoublyLinkedList& other);
+     DoublyLinkedList(DoublyLinkedList&& other) noexcept;
 
      ~DoublyLinkedList();
 
@@ -216,9 +217,9 @@ auto DoublyLinkedList<T>::insert(const T& element, size_t index) -> Node* {
         current_element = current_element->_next;
     }
 
-    Node* new_node = 
+    Node* new_node =
         new Node(element, current_element->_next, current_element);
-    
+
     current_element->_next->_prev = new_node;
     current_element->_next = new_node;
 

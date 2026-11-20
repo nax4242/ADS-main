@@ -22,7 +22,7 @@ class SinglyLinkedList {
     class Iterator {
         Type* _cur;
 
-    public:
+     public:
         explicit Iterator(Type* cur = nullptr) {
             _cur = cur;
         }
@@ -108,7 +108,7 @@ class SinglyLinkedList {
     Node* _tail;
     size_t _size;
 
-public:
+ public:
     typedef Iterator<Node> iterator;
     typedef Iterator<const Node> const_iterator;
 
@@ -129,8 +129,8 @@ public:
     }
 
     SinglyLinkedList();
-    SinglyLinkedList(const List& other);
-    SinglyLinkedList(List&& other) noexcept;
+    SinglyLinkedList(const SinglyLinkedList& other);
+    SinglyLinkedList(SinglyLinkedList&& other) noexcept;
 
     ~SinglyLinkedList();
 
@@ -152,7 +152,7 @@ public:
     inline size_t size() const noexcept;
     inline bool is_empty() const noexcept;
 
-private:
+ private:
     void clear() noexcept;
 };
 
